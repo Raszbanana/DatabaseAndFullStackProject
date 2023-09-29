@@ -1,0 +1,9 @@
+{
+  "watch": ["backend"],
+  "ext": "ts",
+  "execMap": {
+    "ts": "node --loader ts-node/esm --experimental-specifier-resolution=node app.ts"
+  },
+  "ignore": ["node_modules"],
+  "delay": 1000
+}
