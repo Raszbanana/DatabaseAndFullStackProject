@@ -1,4 +1,4 @@
 {
-  "extends": ["../.eslintrc.js", "plugin:react/recommended"],
+  "extends": ["../.eslintrc.json", "plugin:react/recommended"],
   "rules": {}
 }
