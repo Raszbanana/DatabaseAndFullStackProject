@@ -1,11 +1,14 @@
 import React from 'react';
+
+import FlightSearchRow from '../../flight-search-rows/feature/flight-search-row'
 import { IFlight } from '../../utils/common';
+import './flight-search-table.css'
 
 interface FlightSearchResultsProps {
   flights: IFlight[];
 }
 
-const FlightSearchResults: React.FC<FlightSearchResultsProps> = ({ flights }) => {
+const FlightSearchTable: React.FC<FlightSearchResultsProps> = ({ flights }) => {
   if (flights.length === 0) {
     return <p>No flights found.</p>;
   }
@@ -13,9 +16,11 @@ const FlightSearchResults: React.FC<FlightSearchResultsProps> = ({ flights }) =>
   return (
     <div>
       <h2>Flight Search Results</h2>
-      <table>
+      <table
+      cellSpacing="20"
+      >
         <thead>
-          <tr>
+          <tr className="flight-search-table__column-title">
             <th>Flight Number</th>
             <th>Departure Time</th>
             <th>Arrival Time</th>
@@ -24,12 +29,7 @@ const FlightSearchResults: React.FC<FlightSearchResultsProps> = ({ flights }) =>
         </thead>
         <tbody>
           {flights.map((flight) => (
-            <tr key={flight.id}>
-              <td>{flight.flightNumber}</td>
-              <td>{flight.departureTime}</td>
-              <td>{flight.arrivalTime}</td>
-              <td>${flight.price}</td>
-            </tr>
+            <FlightSearchRow key={flight.id} flight={flight} />
           ))}
         </tbody>
       </table>
@@ -37,4 +37,4 @@ const FlightSearchResults: React.FC<FlightSearchResultsProps> = ({ flights }) =>
   );
 };
 
-export default FlightSearchResults;
+export default FlightSearchTable;

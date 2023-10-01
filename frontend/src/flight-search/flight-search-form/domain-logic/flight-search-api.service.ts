@@ -5,29 +5,29 @@ const testFlights: IFlight[] = [
   {
     id: 1,
     flightNumber: 'AA123',
-    departureTime: '2021-01-01T12:00:00',
-    arrivalTime: '2021-01-01T14:00:00',
+    departureTime: '2021-01-01 12:00',
+    arrivalTime: '2021-01-01 14:00',
     price: 100,
   },
   {
     id: 2,
     flightNumber: 'BB234',
-    departureTime: '2021-01-01T12:00:00',
-    arrivalTime: '2021-01-01T14:00:00',
+    departureTime: '2021-01-01 12:00',
+    arrivalTime: '2021-01-01 14:00',
     price: 24,
   },
   {
     id: 3,
     flightNumber: 'CC345',
-    departureTime: '2021-01-01T12:00:00',
-    arrivalTime: '2021-01-01T14:00:00',
+    departureTime: '2021-01-01 12:00',
+    arrivalTime: '2021-01-01 14:00',
     price: 452,
   },
   {
     id: 4,
     flightNumber: 'DD424',
-    departureTime: '2021-01-01T12:00:00',
-    arrivalTime: '2021-01-01T14:00:00',
+    departureTime: '2021-01-01 12:00',
+    arrivalTime: '2021-01-01 14:00',
     price: 312,
   }
 ]
