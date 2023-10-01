@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import './flight-search/flight-search-form/feature/flight-search-form.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

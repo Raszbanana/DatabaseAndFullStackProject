@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 
 import { searchFlights } from '../domain-logic/flight-search-api.service';
+
 import { IFlight, IFlightSearchParams } from '../../utils/common';
+
 import FlightSearchResults from '../../flight-search-table/feature/flight-search-table';
+
+import './flight-search-form.css'
 
 const FlightSearchForm: React.FC = () => {
   const [searchParams, setSearchParams] = useState<IFlightSearchParams>({
