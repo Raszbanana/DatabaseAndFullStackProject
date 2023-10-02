@@ -1,9 +1,8 @@
 import { config } from 'dotenv';
-import db from './db/connections';
 import express from 'express';
-import flightsRouter from './routers/flightsRouter';
-import 'reflect-metadata';
-import airportRouter from './routers/airportsRouter';
+import db from './src/db/connections';
+import airportRouter from './src/routers/airportsRouter';
+import flightsRouter from './src/routers/flightsRouter';
 
 config();
 
