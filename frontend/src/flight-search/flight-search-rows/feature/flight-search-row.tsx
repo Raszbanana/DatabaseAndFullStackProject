@@ -1,4 +1,3 @@
-// FlightSearchRow.tsx
 import React from 'react';
 
 import './flight-search-row.css'

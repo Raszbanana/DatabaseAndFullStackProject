@@ -1,10 +1,6 @@
-/* FlightSearchForm.css */
-/* Style the form container */
 .flight-search-form_container {
   display: flex;
   flex-direction: row;
-  /* justify-content: center;
-  align-items: center; */
   padding-left: 20vh;
   height: 100vh;
 }
