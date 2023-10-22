@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import FlightSearchRow from '../../flight-search-rows/feature/flight-search-row'
 import { IFlight } from '../../utils/common';
@@ -9,9 +9,15 @@ interface FlightSearchResultsProps {
 }
 
 const FlightSearchTable: React.FC<FlightSearchResultsProps> = ({ flights }) => {
+  const [selectedFlightId, setSelectedFlightId] = useState<number | null>(null);
+
   if (flights.length === 0) {
     return <p>No flights found.</p>;
   }
+
+  const handleFlightSelect = (flightId: number) => {
+    setSelectedFlightId(flightId);
+  };
 
   return (
     <div>
@@ -29,10 +35,11 @@ const FlightSearchTable: React.FC<FlightSearchResultsProps> = ({ flights }) => {
         </thead>
         <tbody>
           {flights.map((flight) => (
-            <FlightSearchRow key={flight.id} flight={flight} />
+            <FlightSearchRow key={flight.id} flight={flight} onSelect={handleFlightSelect} />
           ))}
         </tbody>
       </table>
+      {selectedFlightId && <p>Selected Flight ID: {selectedFlightId}</p>}
     </div>
   );
 };
