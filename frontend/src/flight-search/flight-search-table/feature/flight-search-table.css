@@ -1,3 +1,29 @@
 .flight-search-table__column-title {
   color: #FFD700;
+
+}
+
+.flight-search-table { 
+  max-height: 700px;
+  overflow: auto;
+}
+
+/* WebKit (Chrome, Safari) */
+.flight-search-table::-webkit-scrollbar {
+  width: 5px; /* Set the width of the scrollbar */
+}
+
+.flight-search-table::-webkit-scrollbar-thumb {
+  background: #FFD700; /* Set the color of the thumb (the draggable part) */
+  border-radius: 300px; /* Round the thumb's corners */
+}
+
+.flight-search-table::-webkit-scrollbar-track {
+  background: #23a6d5; /* Set the color of the track (the non-draggable part) */
+}
+
+Table thead{
+  position: sticky;
+  top: -10px;
+  margin: 0 0 0 0;
 }

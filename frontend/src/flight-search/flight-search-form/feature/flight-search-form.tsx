@@ -7,6 +7,7 @@ import { IFlight, IFlightSearchParams } from '../../utils/common';
 import FlightSearchTable from '../../flight-search-table/feature/flight-search-table';
 
 import './flight-search-form.css';
+import FlightButton from '../../../ui/button/flight-button';
 
 const FlightSearchForm: React.FC = () => {
   const [searchParams, setSearchParams] = useState<IFlightSearchParams>({
@@ -106,7 +107,7 @@ const FlightSearchForm: React.FC = () => {
               min='1'
             />
           </div>
-          <button type='submit'>Search</button>
+          <FlightButton type='submit'>Search</FlightButton>
         </form>
         <div className="flight-search-form__table">
           <FlightSearchTable flights={flights} />

@@ -2,6 +2,7 @@ import React from 'react';
 
 import './flight-search-row.css'
 import { IFlight } from '../../utils/common';
+import FlightButton from '../../../ui/button/flight-button';
 
 interface FlightSearchRowProps {
   flight: IFlight;
@@ -15,12 +16,12 @@ const FlightSearchRow: React.FC<FlightSearchRowProps> = ({ flight, onSelect }) =
 
   return (
     <tr className="flight-search-row__text">
-      <td>{flight.flightNumber}</td>
-      <td>{flight.departureTime}</td>
-      <td>{flight.arrivalTime}</td>
-      <td>${flight.price}</td>
+      <td className="flight-search-row__flight-number-text">{flight.flightNumber}</td>
+      <td className="flight-search-row__flight-time-text">{flight.departureTime}</td>
+      <td className="flight-search-row__flight-time-text">{flight.arrivalTime}</td>
+      <td className="flight-search-row__flight-price-text">${flight.price}</td>
       <td valign="middle">
-        <button className="flight-search-row__button" onClick={handleSelect}>Select</button>
+        <FlightButton onClick={handleSelect}>Select</FlightButton>
       </td>
     </tr>
   );

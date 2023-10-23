@@ -1,0 +1,13 @@
+.button-design {
+  background-color: #2a6fac;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-design:hover {
+  transform: translateY(-0.2rem);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
