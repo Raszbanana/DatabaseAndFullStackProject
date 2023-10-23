@@ -21,7 +21,7 @@ const FlightSearchTable: React.FC<FlightSearchResultsProps> = ({ flights }) => {
     setSelectedFlightId(flightId);
   };
 
-  const handleScroll = (e) => {
+  const handleScroll = (e: any) => {
     const { scrollTop, clientHeight, scrollHeight } = e.target;
     if (scrollTop + clientHeight >= scrollHeight) {
       const newFlightsToDisplay = flightsToDisplay + 10; 
