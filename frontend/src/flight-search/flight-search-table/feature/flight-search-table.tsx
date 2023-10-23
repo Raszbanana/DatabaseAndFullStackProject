@@ -10,6 +10,8 @@ interface FlightSearchResultsProps {
 
 const FlightSearchTable: React.FC<FlightSearchResultsProps> = ({ flights }) => {
   const [selectedFlightId, setSelectedFlightId] = useState<number | null>(null);
+  const [flightsToDisplay, setFlightsToDisplay] = useState(10);
+  const totalFlights = flights.length;
 
   if (flights.length === 0) {
     return <p>No flights found.</p>;
@@ -19,10 +21,20 @@ const FlightSearchTable: React.FC<FlightSearchResultsProps> = ({ flights }) => {
     setSelectedFlightId(flightId);
   };
 
+  const handleScroll = (e) => {
+    const { scrollTop, clientHeight, scrollHeight } = e.target;
+    if (scrollTop + clientHeight >= scrollHeight) {
+      const newFlightsToDisplay = flightsToDisplay + 10; 
+      setFlightsToDisplay(newFlightsToDisplay > totalFlights ? totalFlights : newFlightsToDisplay);
+    }
+  };
+
   return (
     <div>
       <h2>Flight Search Results</h2>
-      <div className='flight-search-table'>
+      <div 
+      className='flight-search-table'
+      onScroll={handleScroll}>
         <table cellSpacing='20' cellPadding={30}>
           <thead>
             <tr className='flight-search-table__column-title'>
@@ -33,7 +45,7 @@ const FlightSearchTable: React.FC<FlightSearchResultsProps> = ({ flights }) => {
             </tr>
           </thead>
           <tbody>
-            {flights.map((flight) => (
+            {flights.slice(0, flightsToDisplay).map((flight) => (
               <FlightSearchRow
                 key={flight.id}
                 flight={flight}
