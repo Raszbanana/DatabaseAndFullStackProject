@@ -1,6 +1,5 @@
 .flight-search-table__column-title {
   color: #FFD700;
-
 }
 
 .flight-search-table { 
@@ -23,7 +22,7 @@
 }
 
 Table thead{
-  position: sticky;
+  /* position: sticky; */
   top: -10px;
   margin: 0 0 0 0;
 }
