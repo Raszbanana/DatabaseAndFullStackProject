@@ -1,29 +1,41 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import FlightSearchForm from './flight-search/flight-search-form/feature/flight-search-form';
-import FlightBooking from './pages/FlightBooking';
+import FlightBookingPage from './pages/FlightBookingPage';
 import NoPage from './pages/NoPage';
+import Home from './pages/Home';
+
+
+
 
 import './App.css';
 function App() {
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Home />,
+    },
+    {
+      path: "/flight/:id",
+      element: <FlightBookingPage />
+    },
+    {
+      path: "*",
+      element: <NoPage />
+    }
+  ]);
+  
   return (
-    <BrowserRouter>
     <div className='animated-background'>
       <div className='background-container'>
         <div className='App'>
 
-      <Routes>
-        <Route path="/" element={<FlightSearchForm />}>
-        <Route path="/flight/:id" element={<FlightBooking />} />
-          <Route path="*" element={<NoPage />} />
-        </Route>
-      </Routes>
+        <RouterProvider router={router} />
     
         </div>
       </div>
     </div>
-    </BrowserRouter>
   );
 }
 

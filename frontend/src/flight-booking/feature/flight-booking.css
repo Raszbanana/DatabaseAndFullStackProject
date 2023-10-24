@@ -1,0 +1,23 @@
+.flight-booking__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flight-booking__form {
+  width: 20%;
+}
+
+
+.flight-booking__input{
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  flex-grow: 1;
+  width: 100% !important;
+  padding-inline: 0 !important
+}
+
+.flight-booking__button {
+  width: 100%;
+}

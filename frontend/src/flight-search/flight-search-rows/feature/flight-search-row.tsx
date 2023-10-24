@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 
 import './flight-search-row.css'
 import { IFlight } from '../../utils/common';
@@ -10,8 +11,12 @@ interface FlightSearchRowProps {
 }
 
 const FlightSearchRow: React.FC<FlightSearchRowProps> = ({ flight, onSelect }) => {
+
+  const navigate = useNavigate(); 
+
   const handleSelect = () => {
     onSelect(flight.id); // Pass the flight id to the onSelect function
+    navigate('flight/' + flight.id, { state: { fromApp: true } })
   };
 
   return (
