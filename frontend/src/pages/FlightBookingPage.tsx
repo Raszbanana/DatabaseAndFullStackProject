@@ -8,7 +8,6 @@ const FlightBookingPage = () => {
   const location = useLocation();
 
 if (!location.state?.fromApp) {
-  console.log('here');
   window.location.replace('/');
 }
 
