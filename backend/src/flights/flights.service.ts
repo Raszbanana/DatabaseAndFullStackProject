@@ -2,12 +2,11 @@ import { IFlightSearchParams } from './entities/flight-search-params.entity';
 import { IFlight } from '../utils/common/entities/flight.entity';
 import { IFlights } from './entities/flights.interface';
 import { FlightRepository } from './flights.repository';
-import { FlightModel } from '../utils/common/models/flight.model';
 import { convertFlightModelToIFlight } from '../utils/convertFlightModelToIFlight';
 import { IItinerary } from '../utils/common/itinerary.entity';
 
 export class FlightsService implements IFlights {
-  flightRepository: FlightRepository = new FlightRepository();
+  constructor(private readonly flightRepository: FlightRepository) {}
 
   getFlights = async (
     searchParams: IFlightSearchParams

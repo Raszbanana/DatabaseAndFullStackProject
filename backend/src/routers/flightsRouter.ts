@@ -2,10 +2,12 @@ import { Router, Request, Response } from 'express';
 
 import { IFlightSearchParams } from '../flights/entities/flight-search-params.entity';
 import { FlightsService } from '../flights/flights.service';
+import { FlightRepository } from '../flights/flights.repository';
 
 const flightsRouter = Router();
 
-const flightsService: FlightsService = new FlightsService();
+const flightRepository = new FlightRepository();
+const flightsService: FlightsService = new FlightsService(flightRepository);
 
 flightsRouter.get('/findRoute', (req: Request, res: Response) => {
   const searchParams: IFlightSearchParams = {
