@@ -1,6 +1,8 @@
 import { Grid } from '@mui/material';
 import NewestOfferCard from '../../ui/newest-offer-card/newest-offer-card';
 
+import './newest-offers.css';
+
 const items = [
   {
     trip: {
@@ -67,7 +69,7 @@ const items = [
 const NewestOffers = () => {
   return (
     <div>
-      <h2>Newest offers from Copenhagen</h2>
+      <h2 className="newest-offers__header">Newest offers from Copenhagen</h2>
       <Grid
         container
         rowSpacing={1}

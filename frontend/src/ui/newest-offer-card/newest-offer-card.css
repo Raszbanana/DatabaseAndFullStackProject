@@ -1,5 +1,4 @@
 
-
 .newest-offer__description{
     font-size: 1.5rem;
     font-weight: bold;
@@ -15,7 +14,6 @@
 }
 .newest-offer__dates {
     margin-left: 1rem;
-
 }
 
 .newest-offer__date {
@@ -35,4 +33,15 @@
 .newest-offer__button {
     justify-content: flex-end;
     padding: 1rem;
+}
+
+.newest-offer__image {
+    transition: transform 0.5s;
+
+}
+
+.newest-offer__image:hover {
+    transform: scale(1.1);
+    transition: transform 0.5s;
+
 }

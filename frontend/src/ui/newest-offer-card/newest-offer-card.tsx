@@ -26,8 +26,9 @@ function NewestOfferCard({ trip }: NewestOfferCardProps) {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
+        className="newest-offer__image"
         component="img"
-        sx={{ height: 140 }}
+        sx={{ height: 200 }}
         image={imageSrc}
         title={trip.arrivalAirport}
       />

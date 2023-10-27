@@ -43,7 +43,7 @@ function Navbar() {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: '#4745b3',
               textDecoration: 'none',
             }}
           >
@@ -98,7 +98,7 @@ function Navbar() {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: '#4745b3',
               textDecoration: 'none',
             }}
           >

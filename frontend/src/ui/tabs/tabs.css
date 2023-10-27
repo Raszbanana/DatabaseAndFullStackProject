@@ -1,4 +1,17 @@
+.tabs__container{
+    background-color: #c1d0e2
+}
+
+.tabs__text{
+    font-weight: bold !important;
+    font-size: 1.3rem !important;
+}
+
 .tabs__labels{
-    font-weight: bold;
-    font-size: 1.3rem;
+    color: white !important;
+}
+
+
+.tabs__labels-selected{
+    color: rgb(32, 15, 133) !important;
 }

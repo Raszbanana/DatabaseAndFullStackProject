@@ -1,0 +1,19 @@
+.welcome-header__container {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.welcome-header__photo {
+  object-fit: cover;
+  object-position: 100% 70%;
+}
+
+.welcome-header__photo {
+    transition: transform 0.5s;
+}
+
+.welcome-header__photo:hover {
+    transform: scale(1.1);
+    transition: transform 0.5s;
+}

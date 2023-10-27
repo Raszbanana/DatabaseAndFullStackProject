@@ -9,7 +9,13 @@ import FlightSearchTable from '../../flight-search-table/feature/flight-search-t
 import './flight-search-form.css';
 import FlightButton from '../../../ui/button/flight-button';
 
-const FlightSearchForm: React.FC = () => {
+interface FlightSearchFormProps {
+  isReturnTrip: boolean;
+}
+
+const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
+  isReturnTrip,
+}: FlightSearchFormProps) => {
   const [searchParams, setSearchParams] = useState<IFlightSearchParams>({
     departureAirportCode: '',
     arrivalAirportCode: '',
@@ -48,70 +54,68 @@ const FlightSearchForm: React.FC = () => {
 
   return (
     <div>
-      <div className='flight-search-form_container'>
-        <form onSubmit={handleSubmit}>
-        <h2>Flight Search</h2>
+      <div className="flight-search-form_container">
+        <form className="flight-search-form" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor='departureAirportCode'>
+            <label htmlFor="departureAirportCode">
               Departure Airport Code:
             </label>
             <input
-              type='text'
-              id='departureAirportCode'
-              name='departureAirportCode'
+              type="text"
+              id="departureAirportCode"
+              name="departureAirportCode"
               value={searchParams.departureAirportCode}
               onChange={handleInputChange}
               required
             />
           </div>
           <div>
-            <label htmlFor='arrivalAirportCode'>Arrival Airport Code:</label>
+            <label htmlFor="arrivalAirportCode">Arrival Airport Code:</label>
             <input
-              type='text'
-              id='arrivalAirportCode'
-              name='arrivalAirportCode'
+              type="text"
+              id="arrivalAirportCode"
+              name="arrivalAirportCode"
               value={searchParams.arrivalAirportCode}
               onChange={handleInputChange}
               required
             />
           </div>
           <div>
-            <label htmlFor='departureDate'>Departure Date:</label>
+            <label htmlFor="departureDate">Departure Date:</label>
             <input
-              type='date'
-              id='departureDate'
-              name='departureDate'
+              type="date"
+              id="departureDate"
+              name="departureDate"
               value={searchParams.departureDate}
               onChange={handleInputChange}
               required
             />
           </div>
+          {isReturnTrip ? (
+            <div>
+              <label htmlFor="returnDate">Return Date</label>
+              <input
+                type="date"
+                id="returnDate"
+                name="returnDate"
+                value={searchParams.returnDate}
+                onChange={handleInputChange}
+              />
+            </div>
+          ) : null}
           <div>
-            <label htmlFor='returnDate'>Return Date (optional):</label>
+            <label htmlFor="numberOfPassengers">Number of Passengers:</label>
             <input
-              type='date'
-              id='returnDate'
-              name='returnDate'
-              value={searchParams.returnDate}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div>
-            <label htmlFor='numberOfPassengers'>Number of Passengers:</label>
-            <input
-              type='number'
-              id='numberOfPassengers'
-              name='numberOfPassengers'
+              type="number"
+              id="numberOfPassengers"
+              name="numberOfPassengers"
               value={searchParams.numberOfPassengers}
               onChange={handleInputChange}
-              min='1'
+              min="1"
             />
           </div>
-          <FlightButton type='submit'>Search</FlightButton>
+          <FlightButton type="submit">Search</FlightButton>
         </form>
-        <div className="flight-search-form__table">
-          <FlightSearchTable flights={flights} />
-        </div>
       </div>
     </div>
   );

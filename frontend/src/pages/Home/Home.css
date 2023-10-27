@@ -1,3 +1,9 @@
 .home__container{
-padding-inline: 20%;
+padding-inline: 10rem;
+padding-block: 5rem;
+
+}
+
+.welcome-header{
+    margin-top: 5rem;
 }
