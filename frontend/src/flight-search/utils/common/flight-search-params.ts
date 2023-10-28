@@ -1,7 +1,7 @@
 export interface IFlightSearchParams {
   departureAirportCode: string;
   arrivalAirportCode: string;
-  departureDate: Date;
-  returnDate?: Date;
+  departureDate: string;
+  returnDate?: string;
   numberOfPassengers: number;
 }

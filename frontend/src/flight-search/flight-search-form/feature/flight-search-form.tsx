@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, Grid, TextField } from '@mui/material';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import SwapCallsIcon from '@mui/icons-material/SwapCalls';
 import { SelectChangeEvent } from '@mui/material';
+
+import dayjs from 'dayjs';
 
 import { IFlight, IFlightSearchParams } from '../../utils/common';
 import FlightButton from '../../../ui/button/flight-button';
@@ -15,6 +18,8 @@ import FlightButton from '../../../ui/button/flight-button';
 import { searchFlights } from '../domain-logic/flight-search-api.service';
 
 import './flight-search-form.css';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 interface FlightSearchFormProps {
   isReturnTrip: boolean;
@@ -31,11 +36,13 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
 
   const [flights, setFlights] = useState<IFlight[]>([]);
 
+  const dispatch = useDispatch();
+
   const searchParams: IFlightSearchParams = {
     departureAirportCode: departureAirport || '',
     arrivalAirportCode: arrivalAirport || '',
-    departureDate: departureDate || new Date(),
-    returnDate: isReturnTrip ? returnDate || new Date() : undefined,
+    departureDate: departureDate?.toISOString() || new Date().toISOString(),
+    returnDate: isReturnTrip ? returnDate?.toISOString() : '',
     numberOfPassengers,
   };
 
@@ -43,12 +50,9 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
     setFlights(newFlights);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    if (name === 'numberOfPassengers') {
-      setNumberOfPassengers(Number(value) || 1);
-    }
-  };
+  const navigate = useNavigate();
+
+  const yesterday = dayjs().subtract(1, 'day').toDate();
 
   const handleAirportChange = (
     value: { label: string; value: string } | null,
@@ -69,6 +73,11 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
     }
   };
 
+  const disableDate = (day: Date, dateToDisable: Date) => {
+    let check = new Date(dateToDisable).valueOf();
+    return day.valueOf() < check ? true : false;
+  };
+
   const handleNumberOfPassengersChange = (event: SelectChangeEvent<number>) => {
     setNumberOfPassengers(event.target.value as number);
   };
@@ -78,10 +87,23 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
     try {
       const resultFlights = await searchFlights(searchParams);
       updateFlights(resultFlights);
+      dispatch({
+        type: 'UPDATE_FLIGHTS_SEARCH_PARAMS',
+        payload: searchParams,
+      });
+      navigate('/book-flight', { state: { fromApp: true } });
     } catch (error) {
       console.error(error);
     }
   };
+
+  const errorProps =
+    departureDate === null
+      ? {
+          helperText: 'Input is required',
+          error: true,
+        }
+      : {};
 
   const airports = [
     { label: 'Copenhagen [CPH]', value: 'CPH' },
@@ -102,6 +124,16 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
     (airport) => airport.value !== departureAirport
   );
 
+  const swapDestinations = () => {
+    if (departureAirport && arrivalAirport) {
+      const departureAirportValue = departureAirport;
+      const arrivalAirportValue = arrivalAirport;
+
+      setDepartureAirport(arrivalAirportValue);
+      setArrivalAirport(departureAirportValue);
+    }
+  };
+
   const numberOfPassengersOptions = [];
 
   for (let i = 1; i <= 10; i++) {
@@ -116,87 +148,124 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
     <div>
       <div className="flight-search-form_container">
         <form className="flight-search-form" onSubmit={handleSubmit}>
-          <div className="input">
-            <Autocomplete
-              disablePortal
-              options={airports}
-              sx={{ width: 300 }}
-              id="departureAirportCode"
-              onChange={(_, value) =>
-                handleAirportChange(value, 'departureAirportCode')
-              }
-              value={
-                airports.find((option) => option.value === departureAirport) ||
-                null
-              }
-              renderInput={(params) => (
-                <TextField {...params} label="Departure Airport" />
-              )}
-            />
-          </div>
-          <div className="input">
-            <Autocomplete
-              disablePortal
-              disabled={departureAirport === null}
-              options={arrivalAirportOptions}
-              sx={{ width: 300 }}
-              id="arrivalAirportCode"
-              onChange={(_, value) =>
-                handleAirportChange(value, 'arrivalAirportCode')
-              }
-              value={
-                airports.find((option) => option.value === arrivalAirport) ||
-                null
-              }
-              renderInput={(params) => (
-                <TextField {...params} label="Arrival Airport" />
-              )}
-            />
-          </div>
-          <div className="input">
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DesktopDatePicker
-                label="Departure Date"
-                value={departureDate}
-                onChange={(selectedDate: Date | null) =>
-                  setDepartureDate(selectedDate)
-                }
-              />
-            </LocalizationProvider>
-          </div>
-          {isReturnTrip && (
-            <div className="input">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DesktopDatePicker
-                  label="Return Date"
-                  value={returnDate}
-                  onChange={(selectedDate: Date | null) =>
-                    setReturnDate(selectedDate)
+          <Grid
+            container
+            spacing={3}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Grid item lg={2} md={5} xs={12}>
+              <div className="input">
+                <Autocomplete
+                  disablePortal
+                  options={airports}
+                  sx={{ minWidth: 180 }}
+                  id="departureAirportCode"
+                  onChange={(_, value) =>
+                    handleAirportChange(value, 'departureAirportCode')
                   }
+                  value={
+                    airports.find(
+                      (option) => option.value === departureAirport
+                    ) || null
+                  }
+                  renderInput={(params) => (
+                    <TextField {...params} required label="Departure Airport" />
+                  )}
                 />
-              </LocalizationProvider>
-            </div>
-          )}
-          <div className="number-of-passengers__input input">
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">
-                Number of passengers
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={numberOfPassengers}
-                label="Number of passengers"
-                onChange={handleNumberOfPassengersChange}
-              >
-                {numberOfPassengersOptions}
-              </Select>
-            </FormControl>
-          </div>
+              </div>
+            </Grid>
+            <Grid item md lg={1}>
+              <div className="swapIcon">
+                <SwapCallsIcon onClick={swapDestinations} />
+              </div>
+            </Grid>
+            <Grid item lg={2} md={5} xs={12}>
+              <div className="input">
+                <Autocomplete
+                  disablePortal
+                  disabled={departureAirport === null}
+                  options={arrivalAirportOptions}
+                  sx={{ minWidth: 180 }}
+                  id="arrivalAirportCode"
+                  onChange={(_, value) =>
+                    handleAirportChange(value, 'arrivalAirportCode')
+                  }
+                  value={
+                    airports.find(
+                      (option) => option.value === arrivalAirport
+                    ) || null
+                  }
+                  renderInput={(params) => (
+                    <TextField {...params} required label="Arrival Airport" />
+                  )}
+                />
+              </div>
+            </Grid>
+            <Grid item lg={2} md={6} xs={12}>
+              <div className="input">
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DesktopDatePicker
+                    {...errorProps}
+                    format="DD-MM-YYYY"
+                    shouldDisableDate={(day) => disableDate(day, yesterday)}
+                    className="datePicker"
+                    label="Departure Date"
+                    value={departureDate}
+                    onChange={(selectedDate: Date | null) =>
+                      setDepartureDate(selectedDate)
+                    }
+                  />
+                </LocalizationProvider>
+              </div>
+            </Grid>
+            {isReturnTrip && (
+              <Grid item lg={2} md={6} xs={12}>
+                <div className="input">
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DesktopDatePicker
+                      format="DD-MM-YYYY"
+                      shouldDisableDate={(day) =>
+                        disableDate(day, departureDate || yesterday)
+                      }
+                      className="datePicker"
+                      label="Return Date"
+                      disabled={departureDate === null}
+                      value={returnDate}
+                      onChange={(selectedDate: Date | null) =>
+                        setReturnDate(selectedDate)
+                      }
+                    />
+                  </LocalizationProvider>
+                </div>
+              </Grid>
+            )}
 
-          <div className="button">
-            <FlightButton type="submit">Search</FlightButton>
-          </div>
+            <Grid item lg md={12} xs={12}>
+              <div className="number-of-passengers__input input">
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Number of passengers
+                  </InputLabel>
+                  <Select
+                    required
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={numberOfPassengers}
+                    label="Number of passengers"
+                    onChange={handleNumberOfPassengersChange}
+                  >
+                    {numberOfPassengersOptions}
+                  </Select>
+                </FormControl>
+              </div>
+            </Grid>
+            <Grid item lg md={12} xs={12}>
+              <div className="button">
+                <FlightButton type="submit">Search</FlightButton>
+              </div>
+            </Grid>
+          </Grid>
         </form>
       </div>
     </div>

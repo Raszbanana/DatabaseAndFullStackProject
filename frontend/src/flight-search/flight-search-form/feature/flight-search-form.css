@@ -1,17 +1,7 @@
-.flight-search-form_container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.datePicker {
+  min-width: -webkit-fill-available !important;
 }
 
-@media (max-width: 768px) {
-  /* Apply styles for screens with a maximum width of 768px */
-  .input {
-    flex: 1 0 100%; /* Change flex properties for smaller screens */
-  }
-}
-
-/* Style the form itself */
 .form {
   background-color: #3cd5d8;
   padding: 20px;
@@ -20,16 +10,17 @@
   text-align: center;
 }
 
-.flight-search-form{
-  display: flex;
-  flex-direction: row;
-}
-
 /* Style form headings */
 h2 {
   font-size: 24px;
   color: white;
   margin-bottom: 20px;
+}
+
+.swapIcon {
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 
 /* Style form input labels */
@@ -40,31 +31,28 @@ label {
   color: white;
 }
 
-
-
-.input{
-  margin-right: 1rem;
-  flex: 1;
-  margin: 10px; 
-}
-
 /* Style the submit button on hover */
 .button:hover {
   background-color: #4745b3;
 }
 
-.button{
-background-color: #4745b3;
-color: #fff;
-border: none;
-padding: 10px 20px;
-border-radius: 4px;
-font-size: 16px;
-cursor: pointer;
+.button {
+  background-color: #4745b3;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
 }
 
+.button:hover {
+  transform: translateY(-0.2rem);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-.number-of-passengers__input{
+.number-of-passengers__input {
   min-width: 10rem;
 }
-

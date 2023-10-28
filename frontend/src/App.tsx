@@ -15,7 +15,7 @@ function App() {
       element: <Home />,
     },
     {
-      path: '/flight/:id',
+      path: '/book-flight',
       element: <FlightBookingPage />,
     },
     {
