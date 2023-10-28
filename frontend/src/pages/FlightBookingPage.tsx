@@ -6,9 +6,8 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import FlightBooking from '../flight-booking/feature/flight-booking';
 import { useLocation } from 'react-router-dom';
-import FlightSearchTable from '../flight-search/flight-search-table/feature/flight-search-table';
+import NewFlightSearchTable from '../new-flight-search/flight-search-table/feature/flight-search-table';
 
 interface IStep {
   label: string;
@@ -26,7 +25,7 @@ const steps: IStep[] = [
 const renderStepContent = (step: number) => {
   switch (step) {
     case 0:
-      return <FlightSearchTable />;
+      return <NewFlightSearchTable />;
     case 1:
       return <h1>Passenger info</h1>;
     case 2:

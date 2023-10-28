@@ -12,7 +12,7 @@ import { SelectChangeEvent } from '@mui/material';
 
 import dayjs from 'dayjs';
 
-import { IFlight, IFlightSearchParams } from '../../utils/common';
+import { IAirport, IFlight, IFlightSearchParams } from '../../utils/common';
 import FlightButton from '../../../ui/button/flight-button';
 
 import { searchFlights } from '../../flight-search-table/domain-logic/flight-search-api.service';
@@ -25,11 +25,78 @@ interface FlightSearchFormProps {
   isReturnTrip: boolean;
 }
 
+const airports = [
+  {
+    city: 'Copenhagen',
+    country: 'Denmark',
+    airportCode: 'CPH',
+  },
+  {
+    city: 'Warsaw',
+    country: 'Poland',
+    airportCode: 'WAW',
+  },
+  {
+    city: 'Paris',
+    country: 'France',
+    airportCode: 'CDG',
+  },
+  {
+    city: 'New York',
+    country: 'USA',
+    airportCode: 'JFK',
+  },
+  {
+    city: 'Barcelona',
+    country: 'Spain',
+    airportCode: 'BCN',
+  },
+  {
+    city: 'Tokyo',
+    country: 'Japan',
+    airportCode: 'NRT',
+  },
+  {
+    city: 'Frankfurt',
+    country: 'Germany',
+    airportCode: 'FRA',
+  },
+  {
+    city: 'Munich',
+    country: 'Germany',
+    airportCode: 'MUC',
+  },
+  {
+    city: 'Madrid',
+    country: 'Spain',
+    airportCode: 'MAD',
+  },
+  {
+    city: 'London',
+    country: 'United Kingdom',
+    airportCode: 'LHR',
+  },
+  {
+    city: 'Lisbon',
+    country: 'Portugal',
+    airportCode: 'LIS',
+  },
+  {
+    city: 'Porto',
+    country: 'Portugal',
+    airportCode: 'OPO',
+  },
+];
+
 const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
   isReturnTrip,
 }: FlightSearchFormProps) => {
-  const [departureAirport, setDepartureAirport] = useState<string | null>(null);
-  const [arrivalAirport, setArrivalAirport] = useState<string | null>(null);
+  const [departureAirport, setDepartureAirport] = useState<IAirport>(
+    {} as IAirport
+  );
+  const [arrivalAirport, setArrivalAirport] = useState<IAirport>(
+    {} as IAirport
+  );
   const [departureDate, setDepartureDate] = useState<Date | null>(null);
   const [returnDate, setReturnDate] = useState<Date | null>(null);
   const [numberOfPassengers, setNumberOfPassengers] = useState<number>(1);
@@ -39,8 +106,8 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
   const dispatch = useDispatch();
 
   const searchParams: IFlightSearchParams = {
-    departureAirportCode: departureAirport || '',
-    arrivalAirportCode: arrivalAirport || '',
+    departureAirport: departureAirport,
+    arrivalAirport: arrivalAirport,
     departureDate: departureDate?.toISOString() || new Date().toISOString(),
     returnDate: isReturnTrip ? returnDate?.toISOString() : '',
     numberOfPassengers,
@@ -55,7 +122,7 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
   const yesterday = dayjs().subtract(1, 'day').toDate();
 
   const handleAirportChange = (
-    value: { label: string; value: string } | null,
+    value: { label: string; value: IAirport } | null,
     fieldName: string
   ) => {
     if (value) {
@@ -66,9 +133,9 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
       }
     } else {
       if (fieldName === 'departureAirportCode') {
-        setDepartureAirport(null);
+        setDepartureAirport({} as IAirport);
       } else if (fieldName === 'arrivalAirportCode') {
-        setArrivalAirport(null);
+        setArrivalAirport({} as IAirport);
       }
     }
   };
@@ -105,22 +172,14 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
         }
       : {};
 
-  const airports = [
-    { label: 'Copenhagen [CPH]', value: 'CPH' },
-    { label: 'Warsaw [WAW]', value: 'WAW' },
-    { label: 'Paris [CDG]', value: 'CDG' },
-    { label: 'New York [JFK]', value: 'JFK' },
-    { label: 'Barcelona [BCN]', value: 'BCN' },
-    { label: 'Tokyo [NRT]', value: 'NRT' },
-    { label: 'Frankfurt [FRA]', value: 'FRA' },
-    { label: 'Munich [MUC]', value: 'MUC' },
-    { label: 'Madrid [MAD]', value: 'MAD' },
-    { label: 'London  [LHR]', value: 'LHR' },
-    { label: 'Lisbon [LIS]', value: 'LIS' },
-    { label: 'Porto [OPO]', value: 'OPO' },
-  ];
+  console.log(airports);
 
-  const arrivalAirportOptions = airports.filter(
+  const airportsLabels = airports.map((airport) => ({
+    label: `${airport.city} [${airport.airportCode}]`,
+    value: airport,
+  }));
+
+  const arrivalAirportOptions = airportsLabels.filter(
     (airport) => airport.value !== departureAirport
   );
 
@@ -158,14 +217,14 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
               <div className="input">
                 <Autocomplete
                   disablePortal
-                  options={airports}
+                  options={airportsLabels}
                   sx={{ minWidth: 180 }}
                   id="departureAirportCode"
                   onChange={(_, value) =>
                     handleAirportChange(value, 'departureAirportCode')
                   }
                   value={
-                    airports.find(
+                    airportsLabels.find(
                       (option) => option.value === departureAirport
                     ) || null
                   }
@@ -192,7 +251,7 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
                     handleAirportChange(value, 'arrivalAirportCode')
                   }
                   value={
-                    airports.find(
+                    airportsLabels.find(
                       (option) => option.value === arrivalAirport
                     ) || null
                   }

@@ -5,9 +5,9 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import './date-picker.css';
 
-const DatePicker = () => {
+const DatePicker = ({ date }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(
-    dayjs().toDate()
+    date || new Date()
   ); // Initialize selectedDate
 
   const startDateDays = isMobile ? 1 : 2;

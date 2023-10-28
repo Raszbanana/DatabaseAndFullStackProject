@@ -1,10 +1,76 @@
-import { IFlight, IFlightSearchParams } from '../../utils/common';
+import { IFlightSearchParams } from '../../../flight-search/utils/common/flight-search-params';
+import { IFlight } from '../../../flight-search/utils/common/flight.interface';
 
 // const BASE_URL = '/api/flights'; // Adjust the base URL as needed
+const airports = [
+  {
+    city: 'Copenhagen',
+    country: 'Denmark',
+    airportCode: 'CPH',
+  },
+  {
+    city: 'Warsaw',
+    country: 'Poland',
+    airportCode: 'WAW',
+  },
+  {
+    city: 'Paris',
+    country: 'France',
+    airportCode: 'CDG',
+  },
+  {
+    city: 'New York',
+    country: 'USA',
+    airportCode: 'JFK',
+  },
+  {
+    city: 'Barcelona',
+    country: 'Spain',
+    airportCode: 'BCN',
+  },
+  {
+    city: 'Tokyo',
+    country: 'Japan',
+    airportCode: 'NRT',
+  },
+  {
+    city: 'Frankfurt',
+    country: 'Germany',
+    airportCode: 'FRA',
+  },
+  {
+    city: 'Munich',
+    country: 'Germany',
+    airportCode: 'MUC',
+  },
+  {
+    city: 'Madrid',
+    country: 'Spain',
+    airportCode: 'MAD',
+  },
+  {
+    city: 'London',
+    country: 'United Kingdom',
+    airportCode: 'LHR',
+  },
+  {
+    city: 'Lisbon',
+    country: 'Portugal',
+    airportCode: 'LIS',
+  },
+  {
+    city: 'Porto',
+    country: 'Portugal',
+    airportCode: 'OPO',
+  },
+];
+
 const testFlights: IFlight[] = [
   {
     id: 1,
     flightNumber: 'AA123',
+    departureAirport: airports[0],
+    arrivalAirport: airports[1],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 100,
@@ -12,6 +78,8 @@ const testFlights: IFlight[] = [
   {
     id: 2,
     flightNumber: 'BB234',
+    departureAirport: airports[2],
+    arrivalAirport: airports[3],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 24,
@@ -19,6 +87,8 @@ const testFlights: IFlight[] = [
   {
     id: 3,
     flightNumber: 'CC345',
+    departureAirport: airports[3],
+    arrivalAirport: airports[4],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 452,
@@ -26,6 +96,8 @@ const testFlights: IFlight[] = [
   {
     id: 4,
     flightNumber: 'DD424',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 312,
@@ -34,6 +106,8 @@ const testFlights: IFlight[] = [
     id: 1,
     flightNumber: 'AA123',
     departureTime: '2021-01-01 12:00',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     arrivalTime: '2021-01-01 14:00',
     price: 100,
   },
@@ -41,12 +115,16 @@ const testFlights: IFlight[] = [
     id: 2,
     flightNumber: 'BB234',
     departureTime: '2021-01-01 12:00',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     arrivalTime: '2021-01-01 14:00',
     price: 24,
   },
   {
     id: 3,
     flightNumber: 'CC345',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 452,
@@ -54,6 +132,8 @@ const testFlights: IFlight[] = [
   {
     id: 4,
     flightNumber: 'DD424',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 312,
@@ -61,6 +141,8 @@ const testFlights: IFlight[] = [
   {
     id: 1,
     flightNumber: 'AA123',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 100,
@@ -68,6 +150,8 @@ const testFlights: IFlight[] = [
   {
     id: 2,
     flightNumber: 'BB234',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 24,
@@ -75,6 +159,8 @@ const testFlights: IFlight[] = [
   {
     id: 3,
     flightNumber: 'CC345',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 452,
@@ -82,6 +168,8 @@ const testFlights: IFlight[] = [
   {
     id: 4,
     flightNumber: 'DD424',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 312,
@@ -89,6 +177,8 @@ const testFlights: IFlight[] = [
   {
     id: 1,
     flightNumber: 'AA123',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 100,
@@ -96,6 +186,8 @@ const testFlights: IFlight[] = [
   {
     id: 2,
     flightNumber: 'BB234',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 24,
@@ -103,6 +195,8 @@ const testFlights: IFlight[] = [
   {
     id: 3,
     flightNumber: 'CC345',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 452,
@@ -110,6 +204,8 @@ const testFlights: IFlight[] = [
   {
     id: 4,
     flightNumber: 'DD424',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 312,
@@ -117,6 +213,8 @@ const testFlights: IFlight[] = [
   {
     id: 1,
     flightNumber: 'AA123',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 100,
@@ -124,6 +222,8 @@ const testFlights: IFlight[] = [
   {
     id: 2,
     flightNumber: 'BB234',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 24,
@@ -131,6 +231,8 @@ const testFlights: IFlight[] = [
   {
     id: 3,
     flightNumber: 'CC345',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 452,
@@ -138,6 +240,8 @@ const testFlights: IFlight[] = [
   {
     id: 4,
     flightNumber: 'DD424',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 312,
@@ -145,6 +249,8 @@ const testFlights: IFlight[] = [
   {
     id: 1,
     flightNumber: 'AA123',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 100,
@@ -152,6 +258,8 @@ const testFlights: IFlight[] = [
   {
     id: 2,
     flightNumber: 'BB234',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 24,
@@ -159,6 +267,8 @@ const testFlights: IFlight[] = [
   {
     id: 3,
     flightNumber: 'CC345',
+    departureAirport: airports[5],
+    arrivalAirport: airports[6],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 452,
@@ -166,6 +276,8 @@ const testFlights: IFlight[] = [
   {
     id: 4,
     flightNumber: 'DD424',
+    departureAirport: airports[2],
+    arrivalAirport: airports[1],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 312,
@@ -173,6 +285,8 @@ const testFlights: IFlight[] = [
   {
     id: 1,
     flightNumber: 'AA123',
+    departureAirport: airports[2],
+    arrivalAirport: airports[1],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 100,
@@ -180,6 +294,8 @@ const testFlights: IFlight[] = [
   {
     id: 2,
     flightNumber: 'BB234',
+    departureAirport: airports[2],
+    arrivalAirport: airports[1],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 24,
@@ -187,6 +303,8 @@ const testFlights: IFlight[] = [
   {
     id: 3,
     flightNumber: 'CC345',
+    departureAirport: airports[2],
+    arrivalAirport: airports[1],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 452,
@@ -194,6 +312,8 @@ const testFlights: IFlight[] = [
   {
     id: 4,
     flightNumber: 'DD424',
+    departureAirport: airports[2],
+    arrivalAirport: airports[1],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 312,
@@ -201,6 +321,8 @@ const testFlights: IFlight[] = [
   {
     id: 1,
     flightNumber: 'AA123',
+    departureAirport: airports[5],
+    arrivalAirport: airports[1],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 100,
@@ -208,6 +330,8 @@ const testFlights: IFlight[] = [
   {
     id: 2,
     flightNumber: 'BB234',
+    departureAirport: airports[5],
+    arrivalAirport: airports[1],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 24,
@@ -215,6 +339,8 @@ const testFlights: IFlight[] = [
   {
     id: 3,
     flightNumber: 'CC345',
+    departureAirport: airports[5],
+    arrivalAirport: airports[1],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 452,
@@ -222,6 +348,8 @@ const testFlights: IFlight[] = [
   {
     id: 4,
     flightNumber: 'DD424',
+    departureAirport: airports[5],
+    arrivalAirport: airports[1],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 312,
@@ -229,6 +357,8 @@ const testFlights: IFlight[] = [
   {
     id: 1,
     flightNumber: 'AA123',
+    departureAirport: airports[8],
+    arrivalAirport: airports[4],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 100,
@@ -236,6 +366,8 @@ const testFlights: IFlight[] = [
   {
     id: 2,
     flightNumber: 'BB234',
+    departureAirport: airports[8],
+    arrivalAirport: airports[4],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 24,
@@ -243,6 +375,8 @@ const testFlights: IFlight[] = [
   {
     id: 3,
     flightNumber: 'CC345',
+    departureAirport: airports[8],
+    arrivalAirport: airports[4],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 452,
@@ -250,6 +384,8 @@ const testFlights: IFlight[] = [
   {
     id: 4,
     flightNumber: 'DD424',
+    departureAirport: airports[8],
+    arrivalAirport: airports[4],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 312,
@@ -257,6 +393,8 @@ const testFlights: IFlight[] = [
   {
     id: 1,
     flightNumber: 'AA123',
+    departureAirport: airports[8],
+    arrivalAirport: airports[4],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 100,
@@ -264,6 +402,8 @@ const testFlights: IFlight[] = [
   {
     id: 2,
     flightNumber: 'BB234',
+    departureAirport: airports[8],
+    arrivalAirport: airports[4],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 24,
@@ -271,6 +411,8 @@ const testFlights: IFlight[] = [
   {
     id: 3,
     flightNumber: 'CC345',
+    departureAirport: airports[8],
+    arrivalAirport: airports[4],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 452,
@@ -278,6 +420,8 @@ const testFlights: IFlight[] = [
   {
     id: 4,
     flightNumber: 'DD424',
+    departureAirport: airports[2],
+    arrivalAirport: airports[5],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 312,
@@ -285,6 +429,8 @@ const testFlights: IFlight[] = [
   {
     id: 1,
     flightNumber: 'AA123',
+    departureAirport: airports[2],
+    arrivalAirport: airports[5],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 100,
@@ -292,6 +438,8 @@ const testFlights: IFlight[] = [
   {
     id: 2,
     flightNumber: 'BB234',
+    departureAirport: airports[2],
+    arrivalAirport: airports[5],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 24,
@@ -299,6 +447,8 @@ const testFlights: IFlight[] = [
   {
     id: 3,
     flightNumber: 'CC345',
+    departureAirport: airports[2],
+    arrivalAirport: airports[5],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 452,
@@ -306,6 +456,8 @@ const testFlights: IFlight[] = [
   {
     id: 4,
     flightNumber: 'DD424',
+    departureAirport: airports[2],
+    arrivalAirport: airports[5],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 312,
@@ -313,6 +465,8 @@ const testFlights: IFlight[] = [
   {
     id: 1,
     flightNumber: 'AA123',
+    departureAirport: airports[1],
+    arrivalAirport: airports[8],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 100,
@@ -320,6 +474,8 @@ const testFlights: IFlight[] = [
   {
     id: 2,
     flightNumber: 'BB234',
+    departureAirport: airports[1],
+    arrivalAirport: airports[8],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 24,
@@ -327,6 +483,8 @@ const testFlights: IFlight[] = [
   {
     id: 3,
     flightNumber: 'CC345',
+    departureAirport: airports[1],
+    arrivalAirport: airports[8],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 452,
@@ -334,6 +492,8 @@ const testFlights: IFlight[] = [
   {
     id: 4,
     flightNumber: 'DD424',
+    departureAirport: airports[4],
+    arrivalAirport: airports[1],
     departureTime: '2021-01-01 12:00',
     arrivalTime: '2021-01-01 14:00',
     price: 312,

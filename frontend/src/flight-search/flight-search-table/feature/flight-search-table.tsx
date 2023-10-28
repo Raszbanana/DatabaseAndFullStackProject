@@ -5,7 +5,6 @@ import FlightSearchRow from '../../flight-search-rows/feature/flight-search-row'
 import { IFlight } from '../../utils/common';
 import './flight-search-table.css';
 import { searchFlights } from '../domain-logic/flight-search-api.service';
-import DatePicker from '../../../ui/date-picker/date-picker';
 
 const FlightSearchTable: React.FC = () => {
   const [selectedFlightId, setSelectedFlightId] = useState<number | null>(null);
@@ -57,7 +56,6 @@ const FlightSearchTable: React.FC = () => {
   return (
     <div>
       <h2 className="flight-search-header">Choose departure from Copenhagen</h2>
-      <DatePicker />
       <div className="flight-search-table" onScroll={handleScroll}>
         <table cellSpacing="20" cellPadding={30}>
           <thead>
