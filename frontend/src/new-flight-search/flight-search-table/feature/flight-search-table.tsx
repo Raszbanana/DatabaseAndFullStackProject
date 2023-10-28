@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import FlightSearchRow from '../../flight-search-rows/feature/flight-search-row';
 import { IFlight } from '../../utils/common';
 import './flight-search-table.css';
 import { searchFlights } from '../domain-logic/flight-search-api.service';
 import DatePicker from '../../../ui/date-picker/date-picker';
 
-const FlightSearchTable: React.FC = () => {
+const NewFlightSearchTable: React.FC = () => {
   const [selectedFlightId, setSelectedFlightId] = useState<number | null>(null);
   const [flightsToDisplay, setFlightsToDisplay] = useState(10);
   const [flights, setFlights] = useState<IFlight[]>([]);
@@ -58,28 +57,6 @@ const FlightSearchTable: React.FC = () => {
     <div>
       <h2 className="flight-search-header">Choose departure from Copenhagen</h2>
       <DatePicker />
-      <div className="flight-search-table" onScroll={handleScroll}>
-        <table cellSpacing="20" cellPadding={30}>
-          <thead>
-            <tr className="flight-search-table__column-title">
-              <th>Flight Number</th>
-              <th>Departure Time</th>
-              <th>Arrival Time</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {flights.slice(0, flightsToDisplay).map((flight) => (
-              <FlightSearchRow
-                key={flight.id}
-                flight={flight}
-                onSelect={handleFlightSelect}
-              />
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {selectedFlightId && <p>Selected Flight ID: {selectedFlightId}</p>}
     </div>
   );
 };

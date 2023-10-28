@@ -1,4 +1,4 @@
-import { IFlight, IFlightSearchParams } from "../../utils/common";
+import { IFlight, IFlightSearchParams } from '../../utils/common';
 
 // const BASE_URL = '/api/flights'; // Adjust the base URL as needed
 const testFlights: IFlight[] = [
@@ -338,12 +338,14 @@ const testFlights: IFlight[] = [
     arrivalTime: '2021-01-01 14:00',
     price: 312,
   },
-]
-export const searchFlights = async (searchParams: IFlightSearchParams): Promise<IFlight[]> => {
-  console.log('searchParams', searchParams)
+];
+export const searchFlights = async (
+  searchParams: IFlightSearchParams
+): Promise<IFlight[]> => {
+  console.log('searchParams', searchParams);
   return testFlights; // Remove this line and implement the API call
   // try {
-  //   const response = await fetch(BASE_URL, { 
+  //   const response = await fetch(BASE_URL, {
   //     method: 'POST',
   //     headers: {
   //       'Content-Type': 'application/json',

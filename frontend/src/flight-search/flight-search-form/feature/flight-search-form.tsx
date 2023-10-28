@@ -15,7 +15,7 @@ import dayjs from 'dayjs';
 import { IFlight, IFlightSearchParams } from '../../utils/common';
 import FlightButton from '../../../ui/button/flight-button';
 
-import { searchFlights } from '../domain-logic/flight-search-api.service';
+import { searchFlights } from '../../flight-search-table/domain-logic/flight-search-api.service';
 
 import './flight-search-form.css';
 import { useDispatch } from 'react-redux';
@@ -261,7 +261,7 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
               </div>
             </Grid>
             <Grid item lg md={12} xs={12}>
-              <div className="button">
+              <div className="button" onClick={handleSubmit}>
                 <FlightButton type="submit">Search</FlightButton>
               </div>
             </Grid>
