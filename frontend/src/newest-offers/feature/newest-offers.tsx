@@ -70,12 +70,7 @@ const NewestOffers = () => {
   return (
     <div>
       <h2 className="newest-offers__header">Newest offers from Copenhagen</h2>
-      <Grid
-        container
-        rowSpacing={1}
-        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-        spacing={2}
-      >
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         {items.map((item, index) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
             <NewestOfferCard trip={item.trip} />

@@ -57,9 +57,7 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
       <div className="flight-search-form_container">
         <form className="flight-search-form" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="departureAirportCode">
-              Departure Airport Code:
-            </label>
+            <label htmlFor="departureAirportCode">Departure Airport Code</label>
             <input
               type="text"
               id="departureAirportCode"
@@ -70,7 +68,7 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
             />
           </div>
           <div>
-            <label htmlFor="arrivalAirportCode">Arrival Airport Code:</label>
+            <label htmlFor="arrivalAirportCode">Arrival Airport Code</label>
             <input
               type="text"
               id="arrivalAirportCode"
@@ -81,7 +79,7 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
             />
           </div>
           <div>
-            <label htmlFor="departureDate">Departure Date:</label>
+            <label htmlFor="departureDate">Departure Date</label>
             <input
               type="date"
               id="departureDate"
@@ -104,7 +102,7 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
             </div>
           ) : null}
           <div>
-            <label htmlFor="numberOfPassengers">Number of Passengers:</label>
+            <label htmlFor="numberOfPassengers">Number of Passengers</label>
             <input
               type="number"
               id="numberOfPassengers"
@@ -112,6 +110,7 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
               value={searchParams.numberOfPassengers}
               onChange={handleInputChange}
               min="1"
+              max="10"
             />
           </div>
           <FlightButton type="submit">Search</FlightButton>

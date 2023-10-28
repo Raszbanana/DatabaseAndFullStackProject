@@ -24,7 +24,7 @@ function NewestOfferCard({ trip }: NewestOfferCardProps) {
   const imageSrc = `/cities-photos/${trip.arrivalAirportCode.toLowerCase()}.jpg`;
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card>
       <CardMedia
         className="newest-offer__image"
         component="img"

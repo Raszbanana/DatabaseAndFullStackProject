@@ -8,8 +8,6 @@ const WelcomeHeader = () => {
         className="welcome-header__photo"
         alt="Welcome"
         src="/planeWithText.png"
-        height="250px"
-        width="100%"
       ></img>
     </div>
   );

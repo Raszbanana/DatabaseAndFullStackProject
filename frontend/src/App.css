@@ -7,12 +7,14 @@
   flex-direction: column;
 }
 
-.App{
- flex-grow: 1;
-}
 
 .page{
+  margin-inline: auto;
   height: 100%;
+  max-width: 1536px;
+  display: flex;
+  padding: 2rem;
+  flex-direction: column;
 }
 /* Define the animated background */
 /* .animated-background {

@@ -25,13 +25,11 @@ function App() {
   ]);
 
   return (
-    <div className="animated-background">
-      <div className="background-container">
-        <div className="App">
-          <Navbar></Navbar>
-          <div className="page">
-            <RouterProvider router={router} />
-          </div>
+    <div className="background-container">
+      <div className="App">
+        <Navbar></Navbar>
+        <div className="page">
+          <RouterProvider router={router} />
         </div>
       </div>
     </div>
