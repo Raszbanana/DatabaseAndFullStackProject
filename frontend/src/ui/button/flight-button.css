@@ -1,8 +1,9 @@
 .button-design {
-  background-color: #2a6fac;
+  background-color: inherit;
   color: #fff;
   padding: 10px 20px;
   border: none;
+  width: auto;
   border-radius: 5px;
   cursor: pointer;
 }
