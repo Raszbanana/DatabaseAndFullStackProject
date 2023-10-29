@@ -3,6 +3,21 @@
   flex-direction: row;
 }
 
+@media only screen and (max-width: 1080px) {
+  .flight-search {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .flight-search__table {
+    width: 100% !important;
+  }
+
+  .cart {
+    width: 100% !important;
+  }
+}
+
 .flight-search-header {
   color: #4745b3;
 }

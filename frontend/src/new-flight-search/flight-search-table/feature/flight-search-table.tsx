@@ -22,13 +22,17 @@ const NewFlightSearchTable: React.FC = () => {
     (state: any) => state.flightSearchParams
   );
 
+  const numberOfPassengers = useSelector(
+    (state: any) => state.flightSearchParams.numberOfPassengers
+  );
+
   const dispatch = useDispatch();
 
   const selectDepartureFlight = (flight: IFlight) => {
     setSelectedDepartureFlight(flight);
     dispatch({
       type: 'UPDATE_TRIP_DEPARTURE_FLIGHT',
-      payload: flight,
+      payload: { flight, numberOfPassengers },
     });
   };
 
@@ -36,7 +40,7 @@ const NewFlightSearchTable: React.FC = () => {
     setSelectedReturnFlight(flight);
     dispatch({
       type: 'UPDATE_TRIP_RETURN_FLIGHT',
-      payload: flight,
+      payload: { flight, numberOfPassengers },
     });
   };
 

@@ -8,9 +8,16 @@
   background-color: #fff;
 }
 
+@media only screen and (max-width: 923px) {
+  .flight {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .flight-content {
   padding: 16px;
-  flex: 1;
+  width: 75%;
 }
 
 .flight-destination {
@@ -52,6 +59,7 @@
 
 .flight-price {
   background-color: #f5f5f5;
+  width: 25%;
   text-align: center;
   border-top: 1px solid #e0e0e0;
   border-bottom-left-radius: 4px;

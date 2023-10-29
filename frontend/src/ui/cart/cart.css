@@ -43,17 +43,22 @@
   margin-right: 0.5rem;
 }
 
-.flight-time--departure {
+.cart-flight--departure {
   border-block: 0.5px solid #555;
 }
 
-.flight-time--arrival {
+.cart-flight--arrival {
   border-bottom: 0.5px solid #555;
 }
 
 .departure__time,
 .arrival__time {
   display: flex;
+  align-items: center;
+}
+
+.total-text {
+  margin-bottom: 1rem;
 }
 
 .flight-time {

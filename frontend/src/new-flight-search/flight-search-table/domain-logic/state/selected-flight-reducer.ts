@@ -16,20 +16,22 @@ export default function tripReducer(
   state = initialState,
   action: {
     type: string;
-    payload?: IFlight;
+    payload?: { flight: IFlight; numberOfPassengers: number };
   }
 ) {
   switch (action.type) {
     case 'UPDATE_TRIP_DEPARTURE_FLIGHT': {
       return {
-        departureFlight: action.payload,
+        departureFlight: action.payload?.flight,
         returnFlight: state.returnFlight,
+        numberOfPassengers: action.payload?.numberOfPassengers,
       };
     }
     case 'UPDATE_TRIP_RETURN_FLIGHT': {
       return {
         departureFlight: state.departureFlight,
-        returnFlight: action.payload,
+        returnFlight: action.payload?.flight,
+        numberOfPassengers: action.payload?.numberOfPassengers,
       };
     }
     default: {
