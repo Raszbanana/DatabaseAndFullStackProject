@@ -129,7 +129,7 @@ const ItineraryConfirmation = () => {
 
         <Button
           onClick={finishPurchase}
-          className="button"
+          className="button itinerary__button"
           variant="contained"
           color="error"
         >

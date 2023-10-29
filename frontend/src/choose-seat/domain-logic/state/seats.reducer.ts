@@ -39,6 +39,8 @@ export default function seatsReducer(
           (seat) => seat !== action.payload?.seatsNumber
         ),
       };
+    case 'CLEAR_SEATS':
+      return initialState;
     default:
       return state;
   }

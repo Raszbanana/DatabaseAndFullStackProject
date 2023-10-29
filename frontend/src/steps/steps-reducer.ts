@@ -43,6 +43,8 @@ export default function stepsReducer(
         isComplete: false,
       };
     }
+    case 'CLEAR_STEPS':
+      return initialState;
     default: {
       return state;
     }

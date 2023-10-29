@@ -58,6 +58,18 @@ const ChooseSeat = () => {
                 {seats.departureFlight[index]}
               </h4>
             ))}
+            <div className="choose-seat__buttons-steps">
+              {isStepCompleted && !trip.returnFlight && (
+                <Button
+                  className="choose-seat__button"
+                  onClick={proceedWithTheBooking}
+                  variant="contained"
+                  color="error"
+                >
+                  Proceed with the booking
+                </Button>
+              )}
+            </div>
           </div>
           {trip.returnFlight && (
             <div>
@@ -97,7 +109,7 @@ const ChooseSeat = () => {
                     Show next step
                   </Button>
                 )}
-                {isStepCompleted && (
+                {isStepCompleted && trip.returnFlight && (
                   <Button
                     className="choose-seat__button"
                     onClick={proceedWithTheBooking}

@@ -45,6 +45,8 @@ function passengerInfoReducer(
         contactDetails: action.payload.contactDetails!,
       };
     }
+    case 'CLEAR_PASSENGERS_DETAILS':
+      return initialState;
     default:
       return state;
   }

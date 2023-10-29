@@ -34,6 +34,8 @@ export default function tripReducer(
         numberOfPassengers: action.payload?.numberOfPassengers,
       };
     }
+    case 'CLEAR_TRIP':
+      return initialState;
     default: {
       return state;
     }

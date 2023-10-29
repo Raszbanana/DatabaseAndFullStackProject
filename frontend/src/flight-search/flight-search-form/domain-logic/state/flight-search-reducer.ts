@@ -23,6 +23,8 @@ export default function flightSearchParamsReducer(
         numberOfPassengers: action.payload?.numberOfPassengers,
       };
     }
+    case 'CLEAR_FLIGHTS_SEARCH_PARAMS':
+      return initialState;
     default: {
       return state;
     }
