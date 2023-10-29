@@ -1,0 +1,125 @@
+.flight {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  background-color: #fff;
+}
+
+@media only screen and (max-width: 923px) {
+  .flight {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .flight-content {
+    width: 100% !important;
+  }
+
+  .flight-price {
+    width: 100% !important;
+  }
+
+  .departure,
+  .arrival {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+.flight-content {
+  width: 75%;
+}
+
+.flight-content,
+.flight-content--fullWidth {
+  box-sizing: border-box;
+  padding: 16px;
+}
+
+.flight-content--fullWidth {
+  width: 100%;
+}
+
+.flight-destination {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.flight-airports {
+  font-size: 14px;
+  color: #666;
+}
+
+.flight-passengers-text {
+  font-weight: bold;
+  color: #666 !important;
+  margin-bottom: 1rem;
+}
+
+.flight-time {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: black;
+}
+
+.flight-time--departure {
+  justify-content: flex-start;
+}
+.flight-time--arrival {
+  justify-content: flex-end;
+}
+
+.departure,
+.arrival {
+  display: flex;
+  align-items: center;
+}
+
+.arrival {
+  justify-content: flex-end;
+}
+
+.icon {
+  margin-right: 1rem;
+}
+
+.flight-price {
+  background-color: #f5f5f5;
+  width: 25%;
+  text-align: center;
+  border-top: 1px solid #e0e0e0;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+/* Define the arrow-with-line class */
+.arrow-with-line {
+  display: flex;
+  align-items: center;
+}
+
+/* Define the arrow-head class (right-pointing arrow) */
+.arrow-head {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 20px solid #333;
+}
+
+/* Define the line class */
+.line {
+  flex-grow: 1;
+  height: 2px;
+  background: #333;
+  margin-left: 10px;
+}

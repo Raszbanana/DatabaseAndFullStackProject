@@ -1,0 +1,67 @@
+/* passenger-info.css */
+.passenger-info__container {
+  padding-block: 2rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.passenger-info__contact,
+.passenger-info__details {
+  width: 50%;
+}
+
+@media only screen and (max-width: 800px) {
+  .passenger-info__contact,
+  .passenger-info__details {
+    width: 100%;
+  }
+
+  .passenger-info__container {
+    flex-direction: column;
+  }
+
+  .passenger-info__details {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .button {
+    display: flex;
+    justify-content: space-between;
+  }
+  .button__back,
+  .button__continue {
+    width: 45%;
+  }
+}
+
+.passenger-info__details {
+  margin-right: 1rem;
+}
+
+.passenger-info__header {
+  font-size: 24px;
+  margin: 0 0 20px 0;
+}
+
+.passenger-info__form {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.passenger-info__input {
+  margin-bottom: 16px !important;
+}
+
+.passenger-info__submit-button {
+  margin-top: 16px;
+}
+
+.button__back {
+  margin-right: 1rem;
+}

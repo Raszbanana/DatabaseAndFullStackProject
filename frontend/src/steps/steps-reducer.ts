@@ -25,6 +25,24 @@ export default function stepsReducer(
         isComplete: false,
       };
     }
+    case 'GO_TO_PREVIOUS_STEP': {
+      return {
+        currentStep: state.currentStep - 1,
+        isComplete: false,
+      };
+    }
+    case 'COMPLETE_STEP': {
+      return {
+        currentStep: state.currentStep,
+        isComplete: true,
+      };
+    }
+    case 'RESET_STEPS': {
+      return {
+        currentStep: 0,
+        isComplete: false,
+      };
+    }
     default: {
       return state;
     }

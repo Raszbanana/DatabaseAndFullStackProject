@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import FoundFlight from '../../found-flight/found-flight';
+import FoundFlight from '../../../ui/found-flight/found-flight';
 
 import { IFlight } from '../../../flight-search/utils/common/flight.interface';
 import './flight-search-table.css';
@@ -12,12 +12,7 @@ import Cart from '../../../ui/cart/cart';
 
 const NewFlightSearchTable: React.FC = () => {
   const [flights, setFlights] = useState<IFlight[]>([]);
-  const [selectedDepartureFlight, setSelectedDepartureFlight] =
-    useState<IFlight | null>(null);
-  const [selectedReturnFlight, setSelectedReturnFlight] =
-    useState<IFlight | null>(null);
 
-  // Assuming you want to get the flightSearchParams from the Redux store.
   const flightSearchParams = useSelector(
     (state: any) => state.flightSearchParams
   );
@@ -29,7 +24,6 @@ const NewFlightSearchTable: React.FC = () => {
   const dispatch = useDispatch();
 
   const selectDepartureFlight = (flight: IFlight) => {
-    setSelectedDepartureFlight(flight);
     dispatch({
       type: 'UPDATE_TRIP_DEPARTURE_FLIGHT',
       payload: { flight, numberOfPassengers },
@@ -37,7 +31,6 @@ const NewFlightSearchTable: React.FC = () => {
   };
 
   const selectReturnFlight = (flight: IFlight) => {
-    setSelectedReturnFlight(flight);
     dispatch({
       type: 'UPDATE_TRIP_RETURN_FLIGHT',
       payload: { flight, numberOfPassengers },
@@ -67,6 +60,7 @@ const NewFlightSearchTable: React.FC = () => {
           <FoundFlight
             onClickEvent={() => selectDepartureFlight(flight)}
             flight={flight}
+            isWithPriceButton={true}
           />
         ))}
 
@@ -87,6 +81,7 @@ const NewFlightSearchTable: React.FC = () => {
                 onClickEvent={() => selectReturnFlight(flight)}
                 key={index}
                 flight={flight}
+                isWithPriceButton={true}
               />
             ))}
           </div>

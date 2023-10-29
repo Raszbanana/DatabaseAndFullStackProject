@@ -9,6 +9,8 @@ import Typography from '@mui/material/Typography';
 import { useLocation } from 'react-router-dom';
 import NewFlightSearchTable from '../new-flight-search/flight-search-table/feature/flight-search-table';
 import { useDispatch, useSelector } from 'react-redux';
+import PassengerInfo from '../passenger-info/feature/passenger-info';
+import ItineraryConfirmation from '../itinerary-confirmation/feature/itinerary-confirmation';
 
 interface IStep {
   label: string;
@@ -19,7 +21,6 @@ const steps: IStep[] = [
   { label: 'Choose flight', isOptional: false },
   { label: 'Provide your information', isOptional: false },
   { label: 'Choose the seat', isOptional: false },
-  { label: 'Payment', isOptional: false },
   { label: 'Confirmation', isOptional: false },
 ];
 
@@ -28,13 +29,11 @@ const renderStepContent = (step: number) => {
     case 0:
       return <NewFlightSearchTable />;
     case 1:
-      return <h1>Passenger info</h1>;
-    case 2:
-      return <h1>Choose the seat</h1>;
+      return <PassengerInfo />;
     case 3:
-      return <h1>Payment</h1>;
-    case 4:
-      return <h1>Confirmation</h1>;
+      return <h1>Choose the seat</h1>;
+    case 2:
+      return <ItineraryConfirmation />;
     default:
       return <div>Not Found</div>;
   }
@@ -62,20 +61,6 @@ const FlightBookingPage = () => {
 
   const isStepSkipped = (step: number) => {
     return skipped.has(step);
-  };
-
-  const isStepComplete = useSelector(
-    (state: any) => state.steps.isStepComplete
-  );
-
-  const handleNext = () => {
-    let newSkipped = new Set(skipped);
-    if (isStepSkipped(activeStep) && isStepComplete) {
-      newSkipped.delete(activeStep);
-    }
-
-    setActiveStep(activeStep + 1);
-    setSkipped(newSkipped);
   };
 
   const handleBack = () => {
@@ -108,8 +93,8 @@ const FlightBookingPage = () => {
   }
 
   return (
-    <Box style={{ flexWrap: 'wrap' }}>
-      <Stepper activeStep={activeStep}>
+    <Box>
+      <Stepper sx={{ flexWrap: 'wrap' }} activeStep={activeStep}>
         {steps.map((step, index) => {
           const stepProps: { completed?: boolean } = {};
           const labelProps: {
@@ -124,7 +109,7 @@ const FlightBookingPage = () => {
             stepProps.completed = false;
           }
           return (
-            <Step key={step.label} {...stepProps}>
+            <Step key={step.label} {...stepProps} sx={{ marginBottom: '6px' }}>
               <StepLabel {...labelProps}>{step.label}</StepLabel>
             </Step>
           );
@@ -144,23 +129,12 @@ const FlightBookingPage = () => {
         <React.Fragment>
           {renderStepContent(activeStep)}
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
             <Box sx={{ flex: '1 1 auto' }} />
             {isStepOptional(activeStep) && (
               <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
                 Skip
               </Button>
             )}
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-            </Button>
           </Box>
         </React.Fragment>
       )}

@@ -1,0 +1,71 @@
+.itinerary-confirmation__container {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.itinerary-confirmation__header {
+  color: #4745b3 !important;
+}
+
+.plane__departure {
+  transform: rotate(90deg);
+  margin-right: 1rem;
+}
+
+.itinerary-confirmation__departure-date,
+.itinerary-confirmation__departure-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.itinerary-confirmation__contact-details {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  background-color: #fff;
+  padding: 16px;
+}
+
+.itinerary-confirmation__contact-details {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  background-color: #fff;
+  padding: 16px;
+}
+
+@media only screen and (max-width: 1080px) {
+  .contact-details__container {
+    flex-direction: column !important;
+    margin-bottom: 1rem;
+  }
+
+  .contact-details__column {
+    min-width: 0;
+  }
+}
+
+.contact-details__text-key {
+  font-weight: bold;
+}
+.contact-details__column {
+  min-width: 10rem;
+}
+.contact-details__container {
+  display: flex;
+  flex-direction: row;
+}
+
+.contact-details__text {
+  font-size: 14px;
+
+  color: #666 !important;
+}
