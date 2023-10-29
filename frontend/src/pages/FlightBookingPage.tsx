@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 
 import { useLocation } from 'react-router-dom';
 import NewFlightSearchTable from '../new-flight-search/flight-search-table/feature/flight-search-table';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface IStep {
   label: string;
@@ -16,7 +17,7 @@ interface IStep {
 
 const steps: IStep[] = [
   { label: 'Choose flight', isOptional: false },
-  { label: 'Provide your information', isOptional: true },
+  { label: 'Provide your information', isOptional: false },
   { label: 'Choose the seat', isOptional: false },
   { label: 'Payment', isOptional: false },
   { label: 'Confirmation', isOptional: false },
@@ -40,8 +41,20 @@ const renderStepContent = (step: number) => {
 };
 
 const FlightBookingPage = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const activeStep = useSelector((state: any) => state.steps.currentStep);
   const [skipped, setSkipped] = React.useState(new Set<number>());
+
+  const dispatch = useDispatch();
+
+  const setActiveStep = (activeStep: Number) => {
+    dispatch({
+      type: 'UPDATE_CURRENT_STEP',
+      payload: {
+        currentStep: activeStep,
+        isComplete: false,
+      },
+    });
+  };
 
   const isStepOptional = (step: number) => {
     return steps[step].isOptional;
@@ -51,18 +64,22 @@ const FlightBookingPage = () => {
     return skipped.has(step);
   };
 
+  const isStepComplete = useSelector(
+    (state: any) => state.steps.isStepComplete
+  );
+
   const handleNext = () => {
     let newSkipped = new Set(skipped);
-    if (isStepSkipped(activeStep)) {
+    if (isStepSkipped(activeStep) && isStepComplete) {
       newSkipped.delete(activeStep);
     }
 
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setActiveStep(activeStep + 1);
     setSkipped(newSkipped);
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setActiveStep(activeStep - 1);
   };
 
   const handleSkip = () => {
@@ -72,7 +89,7 @@ const FlightBookingPage = () => {
       throw new Error("You can't skip a step that isn't optional.");
     }
 
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setActiveStep(activeStep + 1);
     setSkipped((prevSkipped) => {
       const newSkipped = new Set(prevSkipped);
       newSkipped.add(activeStep);

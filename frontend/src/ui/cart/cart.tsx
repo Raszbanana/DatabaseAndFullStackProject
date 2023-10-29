@@ -1,11 +1,19 @@
 import React from 'react';
 import './cart.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FlightIcon from '@mui/icons-material/Flight';
 import GroupIcon from '@mui/icons-material/Group';
 import Button from '@mui/material/Button';
 
 const Cart: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const bookTheTrip = () => {
+    dispatch({
+      type: 'GO_TO_NEXT_STEP',
+    });
+  };
+
   const trip = useSelector((state: any) => state.trip);
 
   const numberOfPassengers = useSelector(
@@ -108,7 +116,12 @@ const Cart: React.FC = () => {
 
       <div className="cart-price">
         <p className="cart-text total-text">Total: {totalPrice} DKK</p>
-        <Button sx={{ width: 1 }} variant="contained" color="error">
+        <Button
+          onClick={bookTheTrip}
+          sx={{ width: 1 }}
+          variant="contained"
+          color="error"
+        >
           Book the trip
         </Button>
       </div>
