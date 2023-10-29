@@ -11,8 +11,8 @@ import { Dispatch } from 'redux';
 const clearAllStates = (dispatch: Dispatch) => {
   dispatch({ type: 'CLEAR_STEPS' });
   dispatch({ type: 'CLEAR_SEATS' });
-  dispatch({ type: 'CLEAR_SEARCH_PARAMS' });
-  dispatch({ type: 'CLEAR_PASSENGER_DETAILS' });
+  dispatch({ type: 'CLEAR_FLIGHTS_SEARCH_PARAMS' });
+  dispatch({ type: 'CLEAR_PASSENGERS_DETAILS' });
   dispatch({ type: 'CLEAR_TRIP' });
 };
 
