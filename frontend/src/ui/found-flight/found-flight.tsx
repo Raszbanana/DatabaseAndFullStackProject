@@ -13,6 +13,7 @@ const FoundFlight: React.FC<{
   onClickEvent?: () => void;
   flight: IFlight;
   isWithPriceButton?: boolean;
+  seats?: string[];
   showFullAirportName?: boolean;
   passengers?: IPassenger[];
 }> = ({
@@ -20,6 +21,7 @@ const FoundFlight: React.FC<{
   onClickEvent,
   isWithPriceButton,
   showFullAirportName,
+  seats,
   passengers,
 }) => {
   return (
@@ -69,7 +71,7 @@ const FoundFlight: React.FC<{
                 {passengers.map((passenger, index) => (
                   <div key={index} className="flight-passenger__name">
                     {passenger.gender} {passenger.nameAndMiddleName}{' '}
-                    {passenger.surname}
+                    {passenger.surname} {seats && seats[index]}
                   </div>
                 ))}
               </div>

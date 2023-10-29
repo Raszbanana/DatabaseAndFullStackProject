@@ -63,5 +63,9 @@
 }
 
 .button__back {
-  margin-right: 1rem;
+  margin-right: 1rem !important;
+}
+
+.passenger-info__buttons {
+  display: flex !important;
 }

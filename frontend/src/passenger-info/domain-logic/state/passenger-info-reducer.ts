@@ -1,18 +1,4 @@
 import { IPassenger } from '../../../utils/common/passenger.interface';
-
-interface Address {
-  street: string;
-  city: string;
-  country: string;
-  zip_code: string;
-}
-
-interface ContactDetails {
-  email: string;
-  phone: string;
-  address: Address;
-}
-
 interface PassengerInfoState {
   passengers: IPassenger[];
   contactDetails: ContactDetails;
@@ -21,6 +7,17 @@ interface PassengerInfoState {
 interface PassengerInfoAction {
   type: string;
   payload: Partial<PassengerInfoState>;
+}
+
+interface ContactDetails {
+  email: string;
+  phone: string;
+  address: {
+    street: string;
+    city: string;
+    country: string;
+    zip_code: string;
+  };
 }
 
 const initialState: PassengerInfoState = {

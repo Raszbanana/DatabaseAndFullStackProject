@@ -1,0 +1,65 @@
+.choose-seat__container {
+  display: flex;
+  flex-direction: row;
+}
+
+@media only screen and (max-width: 1080px) {
+  .choose-seat__container {
+    flex-direction: column !important;
+  }
+
+  .choose-seat__confirmation,
+  .choose-seat__seat-map {
+    width: 100% !important;
+  }
+
+  .choose-seat__button {
+    width: 100%;
+  }
+
+  .choose-seat__buttons-steps {
+    display: flex;
+    flex-direction: column !important;
+  }
+
+  .choose-seat__button--previous {
+    margin-bottom: 1rem !important;
+    margin-right: 0;
+  }
+}
+
+.choose-seat__button--previous {
+  margin-right: 1rem !important;
+}
+
+.choose-seat__buttons-steps {
+  display: flex;
+  flex-direction: row;
+}
+
+.choose-seat__seat-map {
+  width: 60%;
+}
+
+.choose-seat__confirmation {
+  width: 40%;
+}
+
+.choose-seat__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.choose-seat__icon {
+  margin-right: 1rem;
+  rotate: 90deg;
+}
+
+.choose-seat__flight {
+  color: #4745b3 !important;
+}
+
+.choose-seat__details {
+  color: #666 !important;
+}

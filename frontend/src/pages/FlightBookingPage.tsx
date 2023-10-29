@@ -11,6 +11,7 @@ import NewFlightSearchTable from '../new-flight-search/flight-search-table/featu
 import { useDispatch, useSelector } from 'react-redux';
 import PassengerInfo from '../passenger-info/feature/passenger-info';
 import ItineraryConfirmation from '../itinerary-confirmation/feature/itinerary-confirmation';
+import ChooseSeat from '../choose-seat/feature/choose-seat';
 
 interface IStep {
   label: string;
@@ -30,9 +31,9 @@ const renderStepContent = (step: number) => {
       return <NewFlightSearchTable />;
     case 1:
       return <PassengerInfo />;
-    case 3:
-      return <h1>Choose the seat</h1>;
     case 2:
+      return <ChooseSeat />;
+    case 3:
       return <ItineraryConfirmation />;
     default:
       return <div>Not Found</div>;

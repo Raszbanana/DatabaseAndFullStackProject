@@ -83,17 +83,17 @@ const Cart: React.FC = () => {
           <div className="departure">
             <FlightIcon className="plane--departure " />{' '}
             <h4 className="cart-section-header">
-              {trip.departureFlight.departureTime.split(' ')[0]}
+              {trip.returnFlight.departureTime.split(' ')[0]}
             </h4>
           </div>
           <div className="departure__time">
             <h4 className="cart-section-header">
-              {trip.departureFlight.departureTime.split(' ')[1]}
+              {trip.returnFlight.departureTime.split(' ')[1]}
             </h4>
             <h4 className="cart-section-header">
-              {trip.departureFlight.departureAirport.city}
+              {trip.returnFlight.departureAirport.city}
             </h4>
-            <h4>[{trip.departureFlight.departureAirport.airportCode}]</h4>
+            <h4>[{trip.returnFlight.departureAirport.airportCode}]</h4>
           </div>
           <div className="arrival__time">
             <h4 className="cart-section-header">

@@ -18,15 +18,19 @@ import './passenger-info.css';
 import { IPassenger } from '../../utils/common/passenger.interface';
 
 const PassengerInfo: React.FC = () => {
-  const [passengers, setPassengers] = useState<IPassenger[]>([]);
-  const [contactDetails, setContactDetails] = useState({
-    email: '',
-    phoneNumber: '',
-    country: '',
-    street: '',
-    city: '',
-    zip_code: '',
-  });
+  const passengerDetails = useSelector((state: any) => state.passengerDetails);
+
+  const [passengers, setPassengers] = useState<IPassenger[]>(
+    passengerDetails.passengers
+  );
+
+  const [contactDetails, setContactDetails] = useState(
+    passengerDetails.contactDetails
+  );
+
+  const [address, setAddress] = useState(
+    passengerDetails.contactDetails.address
+  );
 
   const numberOfPassengers = useSelector(
     (state: any) => state.trip.numberOfPassengers
@@ -97,14 +101,27 @@ const PassengerInfo: React.FC = () => {
     });
   };
 
+  const handleAddressChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target;
+    setAddress({
+      ...address,
+      [name]: value,
+    });
+  };
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log('contactDetails', contactDetails);
+    const updatedContactDetails = {
+      ...contactDetails,
+      address: { ...address },
+    };
     dispatch({
       type: 'UPDATE_PASSENGERS_DETAILS',
       payload: {
         passengers: passengers,
-        contactDetails: contactDetails,
+        contactDetails: updatedContactDetails,
       },
     });
     dispatch({
@@ -225,8 +242,8 @@ const PassengerInfo: React.FC = () => {
               name="country"
               label="Country"
               variant="outlined"
-              value={contactDetails.country}
-              onChange={handleContactChange}
+              value={address.country}
+              onChange={handleAddressChange}
               className="passenger-info__input"
             />
             <TextField
@@ -236,8 +253,8 @@ const PassengerInfo: React.FC = () => {
               name="street"
               label="Street"
               variant="outlined"
-              value={contactDetails.street}
-              onChange={handleContactChange}
+              value={address.street}
+              onChange={handleAddressChange}
               className="passenger-info__input"
             />
             <TextField
@@ -247,8 +264,8 @@ const PassengerInfo: React.FC = () => {
               name="city"
               label="City"
               variant="outlined"
-              value={contactDetails.city}
-              onChange={handleContactChange}
+              value={address.city}
+              onChange={handleAddressChange}
               className="passenger-info__input"
             />
             <TextField
@@ -258,14 +275,14 @@ const PassengerInfo: React.FC = () => {
               name="zip_code"
               label="Zip code"
               variant="outlined"
-              value={contactDetails.zip_code}
-              onChange={handleContactChange}
+              value={address.zip_code}
+              onChange={handleAddressChange}
               className="passenger-info__input"
             />
           </div>
         </div>
       </div>
-      <div className="buttons">
+      <div className="passenger-info__buttons">
         <Button
           onClick={comeBack}
           className="button__back"
