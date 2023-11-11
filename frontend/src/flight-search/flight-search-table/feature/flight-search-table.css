@@ -1,8 +1,12 @@
 .flight-search-table__column-title {
-  color: #FFD700;
+  color: #ffd700;
 }
 
-.flight-search-table { 
+.flight-search-header {
+  color: #4745b3;
+}
+
+.flight-search-table {
   max-height: 700px;
   overflow: auto;
 }
@@ -13,7 +17,7 @@
 }
 
 .flight-search-table::-webkit-scrollbar-thumb {
-  background: #FFD700; /* Set the color of the thumb (the draggable part) */
+  background: #ffd700; /* Set the color of the thumb (the draggable part) */
   border-radius: 300px; /* Round the thumb's corners */
 }
 
@@ -21,7 +25,7 @@
   background: #23a6d5; /* Set the color of the track (the non-draggable part) */
 }
 
-Table thead{
+Table thead {
   /* position: sticky; */
   top: -10px;
   margin: 0 0 0 0;

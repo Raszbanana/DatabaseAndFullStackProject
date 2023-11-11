@@ -1,43 +1,65 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import FlightSearchRow from '../../flight-search-rows/feature/flight-search-row';
 import { IFlight } from '../../utils/common';
 import './flight-search-table.css';
+import { searchFlights } from '../domain-logic/flight-search-api.service';
 
-interface FlightSearchResultsProps {
-  flights: IFlight[];
-}
-
-const FlightSearchTable: React.FC<FlightSearchResultsProps> = ({ flights }) => {
+const FlightSearchTable: React.FC = () => {
   const [selectedFlightId, setSelectedFlightId] = useState<number | null>(null);
   const [flightsToDisplay, setFlightsToDisplay] = useState(10);
+  const [flights, setFlights] = useState<IFlight[]>([]);
   const totalFlights = flights.length;
 
-  if (flights.length === 0) {
-    return <p>No flights found.</p>;
-  }
+  // Assuming you want to get the flightSearchParams from the Redux store.
+  const flightSearchParams = useSelector(
+    (state: any) => state.flightSearchParams
+  );
+
+  const dispatch = useDispatch(); // Add Redux dispatch
+
+  useEffect(() => {
+    searchFlights(flightSearchParams).then((flights) => {
+      setFlights(flights);
+    });
+  }, [flightSearchParams]);
 
   const handleFlightSelect = (flightId: number) => {
     setSelectedFlightId(flightId);
   };
 
+  const handleDateSelection = (date: Date) => {
+    const newFlightSearchParams = {
+      ...flightSearchParams,
+      departureDate: date.toISOString(),
+    };
+    dispatch({
+      type: 'UPDATE_FLIGHTS_SEARCH_PARAMS',
+      payload: newFlightSearchParams,
+    });
+    searchFlights(newFlightSearchParams).then((flights) => {
+      setFlights(flights);
+    });
+  };
+
   const handleScroll = (e: any) => {
     const { scrollTop, clientHeight, scrollHeight } = e.target;
     if (scrollTop + clientHeight >= scrollHeight) {
-      const newFlightsToDisplay = flightsToDisplay + 10; 
-      setFlightsToDisplay(newFlightsToDisplay > totalFlights ? totalFlights : newFlightsToDisplay);
+      const newFlightsToDisplay = flightsToDisplay + 10;
+      setFlightsToDisplay(
+        newFlightsToDisplay > totalFlights ? totalFlights : newFlightsToDisplay
+      );
     }
   };
 
   return (
     <div>
-      <h2>Flight Search Results</h2>
-      <div 
-      className='flight-search-table'
-      onScroll={handleScroll}>
-        <table cellSpacing='20' cellPadding={30}>
+      <h2 className="flight-search-header">Choose departure from Copenhagen</h2>
+      <div className="flight-search-table" onScroll={handleScroll}>
+        <table cellSpacing="20" cellPadding={30}>
           <thead>
-            <tr className='flight-search-table__column-title'>
+            <tr className="flight-search-table__column-title">
               <th>Flight Number</th>
               <th>Departure Time</th>
               <th>Arrival Time</th>

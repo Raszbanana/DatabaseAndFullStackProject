@@ -1,0 +1,13 @@
+.thank-you-header__container {
+  width: 100%;
+  height: auto;
+}
+
+.thank-you-header__photo {
+  width: 100%;
+  height: auto;
+}
+
+.thank-you-header__photo {
+  transition: transform 0.5s;
+}

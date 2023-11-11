@@ -1,0 +1,19 @@
+.flight-price-button__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.flight-price__class {
+  padding-inline: 5rem;
+  background-color: #c1d0e2;
+  padding: 1.5rem;
+  font-weight: bold;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.flight-price__total {
+  padding: 1.5rem;
+  color: #666;
+}

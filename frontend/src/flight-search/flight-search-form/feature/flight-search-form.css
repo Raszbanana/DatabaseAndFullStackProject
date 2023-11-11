@@ -1,18 +1,7 @@
-.flight-search-form_container {
-  display: flex;
-  flex-direction: row;
-  padding-left: 20vh;
-  height: 100vh;
+.datePicker {
+  min-width: -webkit-fill-available !important;
 }
 
-.flight-search-form__table {
-  display: flex;
-  flex-direction: column;
-  margin-left: 20vh;
-  height: 100vh;
-}
-
-/* Style the form itself */
 .form {
   background-color: #3cd5d8;
   padding: 20px;
@@ -24,8 +13,14 @@
 /* Style form headings */
 h2 {
   font-size: 24px;
-  color: #FFD700;
+  color: white;
   margin-bottom: 20px;
+}
+
+.swapIcon {
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 
 /* Style form input labels */
@@ -33,33 +28,31 @@ label {
   display: block;
   margin-bottom: 10px;
   font-weight: bold;
-  color: #FFD700;
-}
-
-/* Style form input fields */
-input[type="text"],
-input[type="date"],
-input[type="number"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  font-size: 16px;
-}
-
-/* Style the submit button */
-button[type="submit"] {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 3px;
-  font-size: 16px;
-  cursor: pointer;
+  color: white;
 }
 
 /* Style the submit button on hover */
-button[type="submit"]:hover {
-  background-color: #0056b3;
+.button:hover {
+  background-color: #4745b3;
+}
+
+.button {
+  background-color: #4745b3;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+
+.button:hover {
+  transform: translateY(-0.2rem);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.number-of-passengers__input {
+  min-width: 10rem;
 }
