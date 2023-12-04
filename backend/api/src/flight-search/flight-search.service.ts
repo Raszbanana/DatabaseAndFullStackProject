@@ -9,7 +9,7 @@ import { IFlightSearchParams } from '../flight-search/utils/common/flight-search
 export class FlightSearchService {
   constructor(
     @InjectRepository(Flight)
-    private flightRepository: Repository<Flight>,
+    private readonly flightRepository: Repository<Flight>,
   ) {}
 
   async searchFlights(

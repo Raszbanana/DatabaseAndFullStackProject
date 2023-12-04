@@ -10,6 +10,7 @@ import { Ticket } from './mysql-db-entities/ticket/ticket.entity';
 import { Passenger } from './mysql-db-entities/passenger/passenger.entity';
 
 import { FlightSearchModule } from './flight-search/flight-search.module';
+import { FlightBookingModule } from './flight-booking/flight-booking.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { FlightSearchModule } from './flight-search/flight-search.module';
       }),
     }),
     FlightSearchModule,
+    FlightBookingModule,
   ],
   providers: [],
 })
