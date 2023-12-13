@@ -11,6 +11,7 @@ import { Passenger } from './mysql-db-entities/passenger/passenger.entity';
 
 import { FlightSearchModule } from './flight-search/flight-search.module';
 import { FlightBookingModule } from './flight-booking/flight-booking.module';
+import { AirportModule } from './airports/airports.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { FlightBookingModule } from './flight-booking/flight-booking.module';
     }),
     FlightSearchModule,
     FlightBookingModule,
+    AirportModule,
   ],
   providers: [],
 })
