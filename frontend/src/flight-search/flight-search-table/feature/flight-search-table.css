@@ -1,32 +1,54 @@
-.flight-search-table__column-title {
-  color: #ffd700;
+.flight-search {
+  display: flex;
+  flex-direction: row;
+}
+
+@media only screen and (max-width: 1080px) {
+  .flight-search {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .flight-search__table {
+    width: 100% !important;
+  }
+
+  .cart {
+    width: 100% !important;
+  }
 }
 
 .flight-search-header {
   color: #4745b3;
 }
 
-.flight-search-table {
-  max-height: 700px;
-  overflow: auto;
+.flight-search__table {
+  width: 70%;
 }
 
-/* WebKit (Chrome, Safari) */
-.flight-search-table::-webkit-scrollbar {
-  width: 5px; /* Set the width of the scrollbar */
+.cart {
+  width: 30%;
 }
 
-.flight-search-table::-webkit-scrollbar-thumb {
-  background: #ffd700; /* Set the color of the thumb (the draggable part) */
-  border-radius: 300px; /* Round the thumb's corners */
+.flight-search__details-header {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  text-align: center;
 }
 
-.flight-search-table::-webkit-scrollbar-track {
-  background: #23a6d5; /* Set the color of the track (the non-draggable part) */
+.flight-search__text {
+  color: #4745b3;
 }
 
-Table thead {
-  /* position: sticky; */
-  top: -10px;
-  margin: 0 0 0 0;
+.plane--departure {
+  transform: rotate(90deg);
+  margin-right: 1rem;
+}
+
+.plane--return {
+  transform: rotate(270deg);
+  margin-right: 1rem;
 }

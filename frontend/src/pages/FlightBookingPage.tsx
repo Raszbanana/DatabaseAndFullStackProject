@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import { useLocation } from 'react-router-dom';
-import NewFlightSearchTable from '../new-flight-search/flight-search-table/feature/flight-search-table';
+import FlightSearchTable from '../flight-search/flight-search-table/feature/flight-search-table';
 import { useDispatch, useSelector } from 'react-redux';
 import PassengerInfo from '../passenger-info/feature/passenger-info';
 import ItineraryConfirmation from '../itinerary-confirmation/feature/itinerary-confirmation';
@@ -28,7 +28,7 @@ const steps: IStep[] = [
 const renderStepContent = (step: number) => {
   switch (step) {
     case 0:
-      return <NewFlightSearchTable />;
+      return <FlightSearchTable />;
     case 1:
       return <PassengerInfo />;
     case 2:

@@ -1,23 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import FlightSearchRow from '../../flight-search-rows/feature/flight-search-row';
-import { IFlight } from '../../utils/common';
+import FoundFlight from '../../../ui/found-flight/found-flight';
+
+import { IFlight } from '../../../flight-search/utils/common/flight.interface';
 import './flight-search-table.css';
 import { searchFlights } from '../domain-logic/flight-search-api.service';
+import FlightIcon from '@mui/icons-material/Flight';
+import DatePicker from '../../../ui/date-picker/date-picker';
+import Cart from '../../../ui/cart/cart';
 
 const FlightSearchTable: React.FC = () => {
-  const [selectedFlightId, setSelectedFlightId] = useState<number | null>(null);
-  const [flightsToDisplay, setFlightsToDisplay] = useState(10);
   const [flights, setFlights] = useState<IFlight[]>([]);
-  const totalFlights = flights.length;
 
-  // Assuming you want to get the flightSearchParams from the Redux store.
   const flightSearchParams = useSelector(
     (state: any) => state.flightSearchParams
   );
 
-  const dispatch = useDispatch(); // Add Redux dispatch
+  const numberOfPassengers = useSelector(
+    (state: any) => state.flightSearchParams.numberOfPassengers
+  );
+
+  const dispatch = useDispatch();
+
+  const selectDepartureFlight = (flight: IFlight) => {
+    dispatch({
+      type: 'UPDATE_TRIP_DEPARTURE_FLIGHT',
+      payload: { flight, numberOfPassengers },
+    });
+  };
+
+  const selectReturnFlight = (flight: IFlight) => {
+    dispatch({
+      type: 'UPDATE_TRIP_RETURN_FLIGHT',
+      payload: { flight, numberOfPassengers },
+    });
+  };
 
   useEffect(() => {
     searchFlights(flightSearchParams).then((flights) => {
@@ -25,59 +43,53 @@ const FlightSearchTable: React.FC = () => {
     });
   }, [flightSearchParams]);
 
-  const handleFlightSelect = (flightId: number) => {
-    setSelectedFlightId(flightId);
-  };
-
-  const handleDateSelection = (date: Date) => {
-    const newFlightSearchParams = {
-      ...flightSearchParams,
-      departureDate: date.toISOString(),
-    };
-    dispatch({
-      type: 'UPDATE_FLIGHTS_SEARCH_PARAMS',
-      payload: newFlightSearchParams,
-    });
-    searchFlights(newFlightSearchParams).then((flights) => {
-      setFlights(flights);
-    });
-  };
-
-  const handleScroll = (e: any) => {
-    const { scrollTop, clientHeight, scrollHeight } = e.target;
-    if (scrollTop + clientHeight >= scrollHeight) {
-      const newFlightsToDisplay = flightsToDisplay + 10;
-      setFlightsToDisplay(
-        newFlightsToDisplay > totalFlights ? totalFlights : newFlightsToDisplay
-      );
-    }
-  };
-
   return (
-    <div>
-      <h2 className="flight-search-header">Choose departure from Copenhagen</h2>
-      <div className="flight-search-table" onScroll={handleScroll}>
-        <table cellSpacing="20" cellPadding={30}>
-          <thead>
-            <tr className="flight-search-table__column-title">
-              <th>Flight Number</th>
-              <th>Departure Time</th>
-              <th>Arrival Time</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {flights.slice(0, flightsToDisplay).map((flight) => (
-              <FlightSearchRow
-                key={flight.id}
+    <div className="flight-search">
+      <div className="flight-search__table">
+        <div className="flight-search__details-header">
+          <FlightIcon fontSize="large" className="plane--departure" />
+          <h1 className="flight-search__text">
+            {flightSearchParams.departureAirport.city} [
+            {flightSearchParams.departureAirport.airportCode}] -{' '}
+            {flightSearchParams.arrivalAirport.city} [
+            {flightSearchParams.arrivalAirport.airportCode}]
+          </h1>
+        </div>
+        <DatePicker date={flightSearchParams.departureDate} />
+        {flights.map((flight, index) => (
+          <FoundFlight
+            onClickEvent={() => selectDepartureFlight(flight)}
+            flight={flight}
+            isWithPriceButton={true}
+          />
+        ))}
+
+        {flightSearchParams.returnDate && (
+          <div>
+            <div className="flight-search__details-header">
+              <FlightIcon className="plane--return" />
+              <h2 className="flight-search__text">
+                {flightSearchParams.arrivalAirport.city} [
+                {flightSearchParams.arrivalAirport.airportCode}] -{' '}
+                {flightSearchParams.departureAirport.city} [
+                {flightSearchParams.departureAirport.airportCode}]
+              </h2>
+            </div>
+            <DatePicker date={flightSearchParams.returnDate} />
+            {flights.map((flight, index) => (
+              <FoundFlight
+                onClickEvent={() => selectReturnFlight(flight)}
+                key={index}
                 flight={flight}
-                onSelect={handleFlightSelect}
+                isWithPriceButton={true}
               />
             ))}
-          </tbody>
-        </table>
+          </div>
+        )}
       </div>
-      {selectedFlightId && <p>Selected Flight ID: {selectedFlightId}</p>}
+      <div className="cart">
+        <Cart />
+      </div>
     </div>
   );
 };
