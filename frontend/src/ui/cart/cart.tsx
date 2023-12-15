@@ -1,9 +1,11 @@
 import React from 'react';
-import './cart.css';
+import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import FlightIcon from '@mui/icons-material/Flight';
 import GroupIcon from '@mui/icons-material/Group';
 import Button from '@mui/material/Button';
+
+import './cart.css';
 
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
@@ -30,6 +32,10 @@ const Cart: React.FC = () => {
 
   const totalPrice = departurePrice + returnPrice;
 
+  const formatDate = (date: string) => {
+    return dayjs(date).format('YYYY-MM-DD HH:mm');
+  };
+
   if (!trip.departureFlight) {
     return (
       <div className="cart-item">
@@ -47,12 +53,12 @@ const Cart: React.FC = () => {
         <div className="departure">
           <FlightIcon className="plane--departure " />{' '}
           <h4 className="cart-section-header">
-            {trip.departureFlight.departureTime.split(' ')[0]}
+            {formatDate(trip.departureFlight.departureTime).split(' ')[0]}
           </h4>
         </div>
         <div className="departure__time">
           <h4 className="cart-section-header">
-            {trip.departureFlight.departureTime.split(' ')[1]}
+            {formatDate(trip.departureFlight.departureTime).split(' ')[1]}
           </h4>
           <h4 className="cart-section-header">
             {trip.departureFlight.departureAirport.city}
@@ -61,7 +67,7 @@ const Cart: React.FC = () => {
         </div>
         <div className="arrival__time">
           <h4 className="cart-section-header">
-            {trip.departureFlight.arrivalTime.split(' ')[1]}
+            {formatDate(trip.departureFlight.arrivalTime).split(' ')[1]}
           </h4>
           <h4 className="cart-section-header">
             {trip.departureFlight.arrivalAirport.city}
@@ -83,12 +89,12 @@ const Cart: React.FC = () => {
           <div className="departure">
             <FlightIcon className="plane--departure " />{' '}
             <h4 className="cart-section-header">
-              {trip.returnFlight.departureTime.split(' ')[0]}
+              {formatDate(trip.returnFlight.departureTime).split(' ')[0]}
             </h4>
           </div>
           <div className="departure__time">
             <h4 className="cart-section-header">
-              {trip.returnFlight.departureTime.split(' ')[1]}
+              {formatDate(trip.returnFlight.departureTime).split(' ')[1]}
             </h4>
             <h4 className="cart-section-header">
               {trip.returnFlight.departureAirport.city}
@@ -97,7 +103,7 @@ const Cart: React.FC = () => {
           </div>
           <div className="arrival__time">
             <h4 className="cart-section-header">
-              {trip.returnFlight.arrivalTime.split(' ')[1]}
+              {formatDate(trip.returnFlight.arrivalTime).split(' ')[1]}
             </h4>
             <h4 className="cart-section-header">
               {trip.returnFlight.arrivalAirport.city}

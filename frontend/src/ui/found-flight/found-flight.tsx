@@ -1,4 +1,5 @@
 import React from 'react';
+import dayjs from 'dayjs';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import FlightLandIcon from '@mui/icons-material/FlightLand';
 import { IFlight } from '../../flight-search/utils/common/flight.interface';
@@ -8,6 +9,10 @@ import { IPassenger } from '../../utils/common/passenger.interface';
 
 import './found-flight.css';
 import { Grid } from '@mui/material';
+
+const formatDate = (date: string) => {
+  return dayjs(date).format('YYYY-MM-DD HH:mm');
+};
 
 const FoundFlight: React.FC<{
   onClickEvent?: () => void;
@@ -47,7 +52,8 @@ const FoundFlight: React.FC<{
           <Grid item lg={2} md={2} xs={2}>
             <div className="flight-time flight-time--departure">
               <div className="departure">
-                <FlightTakeoffIcon className="icon" /> {flight.departureTime}
+                <FlightTakeoffIcon className="icon" />{' '}
+                {formatDate(flight.departureTime)}
               </div>
             </div>
           </Grid>
@@ -60,7 +66,8 @@ const FoundFlight: React.FC<{
           <Grid item lg={2} md={2} xs={2}>
             <div className="flight-time flight-time--arrival">
               <div className="arrival">
-                <FlightLandIcon className="icon" /> {flight.arrivalTime}
+                <FlightLandIcon className="icon" />{' '}
+                {formatDate(flight.arrivalTime)}
               </div>
             </div>
           </Grid>

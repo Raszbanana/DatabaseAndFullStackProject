@@ -11,13 +11,7 @@ export const searchFlights = async (
   console.log('here!');
 
   try {
-    const newSearchParmas = {
-      departureAirport: 1,
-      arrivalAirport: 2,
-      departureDate: '20230916',
-      numberOfPassengers: 1,
-    };
-    const response = await axios.get(BASE_URL, { params: newSearchParmas });
+    const response = await axios.get(BASE_URL, { params: searchParams });
 
     if (response.status !== 200) {
       throw new Error('Failed to fetch flight data');
