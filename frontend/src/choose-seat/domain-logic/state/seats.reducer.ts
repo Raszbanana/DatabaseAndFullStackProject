@@ -12,7 +12,6 @@ export default function seatsReducer(
 ) {
   switch (action.type) {
     case 'ADD_SEAT_FOR_DEPARTURE_FLIGHT':
-      console.log(action.payload);
       return {
         ...state,
         departureFlight: [
