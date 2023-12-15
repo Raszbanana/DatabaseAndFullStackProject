@@ -1,0 +1,15 @@
+export interface IFlightSearchResponse { 
+  flightId: number,
+  flightNumber: string,
+  departureDateTime: string,
+  departureAirportId: number,
+  departureAirportCode: string,
+  departureAirportCity: string,
+  departureAirportCountry: string,
+  arrivalDateTime: string,
+  arrivalAirportId: number,
+  arrivalAirportCode: string,
+  arrivalAirportCity: string,
+  arrivalAirportCountry: string,
+  availableSeats: number,
+}
