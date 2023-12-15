@@ -15,31 +15,57 @@ export class FlightSearchService {
   ) {}
 
   async searchFlights(
-    flightSearchParams: IFlightSearchParams,
+    flightSearchParams: Omit<IFlightSearchParams, 'returnDate'>,
   ): Promise<any> {
-    // Setup query for stored procedure
     try {
       const query = 'CALL GetFlightsByDestinationAndDates(?, ?, ?, ?)';
 
-      const result: IFlightSearchResponse[][] = await this.flightRepository.query(query, [
-        flightSearchParams.departureDate,
-        flightSearchParams.departureAirport,
-        flightSearchParams.arrivalAirport,
-        flightSearchParams.numberOfPassengers,
-      ]);
+      const result: IFlightSearchResponse[][] =
+        await this.flightRepository.query(query, [
+          flightSearchParams.departureDate,
+          flightSearchParams.departureAirport,
+          flightSearchParams.arrivalAirport,
+          flightSearchParams.numberOfPassengers,
+        ]);
 
       const flightData: IFlightSearchResponse[] = result[0];
 
-      const transformFlightSearchResult: IFlight[] = flightData.map(mapFlightSearchResponseToFlight);
+      const transformFlightSearchResult: IFlight[] = flightData.map(
+        mapFlightSearchResponseToFlight,
+      );
 
       return transformFlightSearchResult;
     } catch (error) {
       console.log(error);
     }
   }
+
+  async getFlights(flightSearchParams: IFlightSearchParams): Promise<any> {
+    const departureFlights = await this.searchFlights({
+      departureDate: flightSearchParams.departureDate,
+      departureAirport: flightSearchParams.departureAirport,
+      arrivalAirport: flightSearchParams.arrivalAirport,
+      numberOfPassengers: flightSearchParams.numberOfPassengers,
+    });
+    const returnFlights = flightSearchParams.returnDate
+      ? await this.searchFlights({
+          departureDate: flightSearchParams.returnDate,
+          departureAirport: flightSearchParams.arrivalAirport,
+          arrivalAirport: flightSearchParams.departureAirport,
+          numberOfPassengers: flightSearchParams.numberOfPassengers,
+        })
+      : [];
+
+    return {
+      departureFlights,
+      returnFlights,
+    };
+  }
 }
 
-function mapFlightSearchResponseToFlight(response: IFlightSearchResponse): IFlight {
+function mapFlightSearchResponseToFlight(
+  response: IFlightSearchResponse,
+): IFlight {
   return {
     id: response.flightId,
     flightNumber: response.flightNumber,
@@ -56,6 +82,6 @@ function mapFlightSearchResponseToFlight(response: IFlightSearchResponse): IFlig
       country: response.arrivalAirportCountry,
     },
     // generate random price between 100 and 500
-    price: Math.floor(Math.random() * (500 - 100 + 1) + 100), 
+    price: Math.floor(Math.random() * (500 - 100 + 1) + 100),
   };
 }

@@ -1,15 +1,13 @@
 import axios from 'axios';
 
 import { IFlightSearchParams } from '../../../flight-search/utils/common/flight-search-params';
-import { IFlight } from '../../../flight-search/utils/common/flight.interface';
+import { IFoundFlights } from '../../../flight-search/utils/common/flight.interface';
 
 const BASE_URL = 'http://localhost:8080/api/flight-search';
 
 export const searchFlights = async (
   searchParams: IFlightSearchParams
-): Promise<IFlight[]> => {
-  console.log('here!');
-
+): Promise<IFoundFlights> => {
   try {
     const response = await axios.get(BASE_URL, { params: searchParams });
 

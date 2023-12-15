@@ -9,6 +9,6 @@ export class FlightSearchController {
 
   @Get()
   searchFlights(@Query() flightSearchParams: IFlightSearchParams) {
-    return this.flightSearchService.searchFlights(flightSearchParams);
+    return this.flightSearchService.getFlights(flightSearchParams);
   }
 }

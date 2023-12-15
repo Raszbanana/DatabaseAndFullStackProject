@@ -9,3 +9,8 @@ export interface IFlight {
   arrivalAirport?: IAirport;
   price: number;
 }
+
+export interface IFoundFlights {
+  departureFlights: IFlight[];
+  returnFlights: IFlight[];
+}

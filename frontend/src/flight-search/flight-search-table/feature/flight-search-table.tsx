@@ -3,7 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import FoundFlight from '../../../ui/found-flight/found-flight';
 
-import { IFlight } from '../../../flight-search/utils/common/flight.interface';
+import {
+  IFlight,
+  IFoundFlights,
+} from '../../../flight-search/utils/common/flight.interface';
 import './flight-search-table.css';
 import { searchFlights } from '../domain-logic/flight-search-api.service';
 import FlightIcon from '@mui/icons-material/Flight';
@@ -11,7 +14,10 @@ import DatePicker from '../../../ui/date-picker/date-picker';
 import Cart from '../../../ui/cart/cart';
 
 const FlightSearchTable: React.FC = () => {
-  const [flights, setFlights] = useState<IFlight[]>([]);
+  const [flights, setFlights] = useState<IFoundFlights>({
+    departureFlights: [],
+    returnFlights: [],
+  });
 
   const flightSearchParams = useSelector(
     (state: any) => state.flightSearchParams
@@ -56,9 +62,8 @@ const FlightSearchTable: React.FC = () => {
           </h1>
         </div>
         <DatePicker date={flightSearchParams.departureDate} />
-        {flights.map((flight, index) => (
+        {flights.departureFlights.map((flight, index) => (
           <FoundFlight
-            key={index}
             onClickEvent={() => selectDepartureFlight(flight)}
             flight={flight}
             isWithPriceButton={true}
@@ -77,7 +82,7 @@ const FlightSearchTable: React.FC = () => {
               </h2>
             </div>
             <DatePicker date={flightSearchParams.returnDate} />
-            {flights.map((flight, index) => (
+            {flights.returnFlights.map((flight, index) => (
               <FoundFlight
                 onClickEvent={() => selectReturnFlight(flight)}
                 key={index}
