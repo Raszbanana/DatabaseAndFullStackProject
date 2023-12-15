@@ -18,6 +18,7 @@
     "@types/react": "^18.2.23",
     "@types/react-dom": "^18.2.8",
     "@typescript-eslint/parser": "^6.9.0",
+    "axios": "^1.6.2",
     "dayjs": "^1.11.10",
     "install": "^0.13.0",
     "npm": "^10.2.1",

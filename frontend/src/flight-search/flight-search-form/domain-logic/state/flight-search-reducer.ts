@@ -1,8 +1,8 @@
-import { IAirport, IFlightSearchParams } from '../../../utils/common';
+import { IFlightSearchParams } from '../../../utils/common';
 
 const initialState: IFlightSearchParams = {
-  departureAirport: {} as IAirport,
-  arrivalAirport: {} as IAirport,
+  departureAirportId: 1,
+  arrivalAirportId: 1,
   departureDate: '',
   returnDate: '',
   numberOfPassengers: 1,
@@ -16,8 +16,8 @@ export default function flightSearchParamsReducer(
     case 'UPDATE_FLIGHTS_SEARCH_PARAMS': {
       console.log('payload', action.payload);
       return {
-        departureAirport: action.payload?.departureAirport,
-        arrivalAirport: action.payload?.arrivalAirport,
+        departureAirport: action.payload?.departureAirportId,
+        arrivalAirport: action.payload?.arrivalAirportId,
         departureDate: action.payload?.departureDate,
         returnDate: action.payload?.returnDate,
         numberOfPassengers: action.payload?.numberOfPassengers,

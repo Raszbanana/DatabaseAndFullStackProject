@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Autocomplete, Grid, TextField } from '@mui/material';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -12,81 +12,17 @@ import { SelectChangeEvent } from '@mui/material';
 
 import dayjs from 'dayjs';
 
-import { IAirport, IFlight, IFlightSearchParams } from '../../utils/common';
+import { IAirport, IFlightSearchParams } from '../../utils/common';
 import FlightButton from '../../../ui/button/flight-button';
-
-import { searchFlights } from '../../flight-search-table/domain-logic/flight-search-api.service';
 
 import './flight-search-form.css';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { getAirports } from '../domain-logic/flight-search-form.api';
 
 interface FlightSearchFormProps {
   isReturnTrip: boolean;
 }
-
-const airports = [
-  {
-    city: 'Copenhagen',
-    country: 'Denmark',
-    airportCode: 'CPH',
-  },
-  {
-    city: 'Warsaw',
-    country: 'Poland',
-    airportCode: 'WAW',
-  },
-  {
-    city: 'Paris',
-    country: 'France',
-    airportCode: 'CDG',
-  },
-  {
-    city: 'New York',
-    country: 'USA',
-    airportCode: 'JFK',
-  },
-  {
-    city: 'Barcelona',
-    country: 'Spain',
-    airportCode: 'BCN',
-  },
-  {
-    city: 'Tokyo',
-    country: 'Japan',
-    airportCode: 'NRT',
-  },
-  {
-    city: 'Frankfurt',
-    country: 'Germany',
-    airportCode: 'FRA',
-  },
-  {
-    city: 'Munich',
-    country: 'Germany',
-    airportCode: 'MUC',
-  },
-  {
-    city: 'Madrid',
-    country: 'Spain',
-    airportCode: 'MAD',
-  },
-  {
-    city: 'London',
-    country: 'United Kingdom',
-    airportCode: 'LHR',
-  },
-  {
-    city: 'Lisbon',
-    country: 'Portugal',
-    airportCode: 'LIS',
-  },
-  {
-    city: 'Porto',
-    country: 'Portugal',
-    airportCode: 'OPO',
-  },
-];
 
 const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
   isReturnTrip,
@@ -97,24 +33,40 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
   const [arrivalAirport, setArrivalAirport] = useState<IAirport>(
     {} as IAirport
   );
-  const [departureDate, setDepartureDate] = useState<Date | null>(null);
-  const [returnDate, setReturnDate] = useState<Date | null>(null);
+  const [departureDate, setDepartureDate] = useState<string>('');
+  const [returnDate, setReturnDate] = useState<string>('');
   const [numberOfPassengers, setNumberOfPassengers] = useState<number>(1);
 
-  const [flights, setFlights] = useState<IFlight[]>([]);
+  const [airports, setAirports] = useState<IAirport[]>([]);
+
+  const convertAndSetDepartureDate = (
+    chosenDepartureDate: Date | null,
+    isReturn?: boolean
+  ) => {
+    if (dayjs(chosenDepartureDate).isValid()) {
+      const year = dayjs(chosenDepartureDate).format('YYYY');
+      const month = dayjs(chosenDepartureDate).format('MM');
+      const day = dayjs(chosenDepartureDate).format('DD');
+
+      const formattedDate = `${year}${month}${day}`;
+      isReturn ? setReturnDate(formattedDate) : setDepartureDate(formattedDate);
+    }
+  };
+
+  useEffect(() => {
+    getAirports().then((airports) => {
+      setAirports(airports);
+    });
+  }, []);
 
   const dispatch = useDispatch();
 
   const searchParams: IFlightSearchParams = {
-    departureAirport: departureAirport,
-    arrivalAirport: arrivalAirport,
-    departureDate: departureDate?.toISOString() || new Date().toISOString(),
-    returnDate: isReturnTrip ? returnDate?.toISOString() : '',
+    departureAirportId: departureAirport.airportId,
+    arrivalAirportId: arrivalAirport.airportId,
+    departureDate: departureDate,
+    returnDate: isReturnTrip ? returnDate : undefined,
     numberOfPassengers,
-  };
-
-  const updateFlights = (newFlights: IFlight[]) => {
-    setFlights(newFlights);
   };
 
   const navigate = useNavigate();
@@ -152,8 +104,6 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const resultFlights = await searchFlights(searchParams);
-      updateFlights(resultFlights);
       dispatch({
         type: 'UPDATE_FLIGHTS_SEARCH_PARAMS',
         payload: searchParams,
@@ -171,8 +121,6 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
           error: true,
         }
       : {};
-
-  console.log(airports);
 
   const airportsLabels = airports.map((airport) => ({
     label: `${airport.city} [${airport.airportCode}]`,
@@ -270,9 +218,9 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
                     shouldDisableDate={(day) => disableDate(day, yesterday)}
                     className="datePicker"
                     label="Departure Date"
-                    value={departureDate}
+                    value={dayjs(departureDate).toDate()}
                     onChange={(selectedDate: Date | null) =>
-                      setDepartureDate(selectedDate)
+                      convertAndSetDepartureDate(selectedDate)
                     }
                   />
                 </LocalizationProvider>
@@ -285,14 +233,17 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
                     <DesktopDatePicker
                       format="DD-MM-YYYY"
                       shouldDisableDate={(day) =>
-                        disableDate(day, departureDate || yesterday)
+                        disableDate(
+                          day,
+                          dayjs(departureDate).toDate() || yesterday
+                        )
                       }
                       className="datePicker"
                       label="Return Date"
                       disabled={departureDate === null}
-                      value={returnDate}
+                      value={dayjs(returnDate).toDate()}
                       onChange={(selectedDate: Date | null) =>
-                        setReturnDate(selectedDate)
+                        convertAndSetDepartureDate(selectedDate, true)
                       }
                     />
                   </LocalizationProvider>

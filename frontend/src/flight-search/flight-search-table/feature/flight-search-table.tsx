@@ -58,6 +58,7 @@ const FlightSearchTable: React.FC = () => {
         <DatePicker date={flightSearchParams.departureDate} />
         {flights.map((flight, index) => (
           <FoundFlight
+            key={index}
             onClickEvent={() => selectDepartureFlight(flight)}
             flight={flight}
             isWithPriceButton={true}
