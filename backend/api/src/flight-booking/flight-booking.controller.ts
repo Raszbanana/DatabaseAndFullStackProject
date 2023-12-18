@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 
-import { FlightBookingService } from './flight-Booking.service';
+import { FlightBookingService } from './flight-booking.service';
 import { IFlightBookingParams } from './utils/common/flight-booking-params.interface';
 
 @Controller('flight-booking')

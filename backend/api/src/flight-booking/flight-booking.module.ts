@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { BookingMysqlEntity } from 'src/mysql-db-entities/booking/booking.entity';
 
-import { FlightBookingService } from './flight-Booking.service';
+import { FlightBookingService } from './flight-booking.service';
 import { FlightBookingController } from './flight-booking.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BookingMongooseModel, BookingSchema } from 'src/mongoose-models/booking/booking.schema';
