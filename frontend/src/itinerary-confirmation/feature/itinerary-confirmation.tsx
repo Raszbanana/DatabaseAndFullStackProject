@@ -101,7 +101,7 @@ const ItineraryConfirmation = () => {
                 </div>
                 <div className="contact-details__column">
                   <p className="contact-details__text">
-                    {passengerDetails.contactDetails.phone}
+                    {passengerDetails.contactDetails.phoneNumber}
                   </p>
                 </div>
               </div>
