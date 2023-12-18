@@ -2,20 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Booking } from 'src/mysql-db-entities/booking/booking.entity';
+import { BookingMysqlEntity } from 'src/mysql-db-entities/booking/booking.entity';
 
 import { IFlightBookingParams } from './utils/common/flight-booking-params.interface';
 
 @Injectable()
 export class FlightBookingService {
   constructor(
-    @InjectRepository(Booking)
-    private readonly bookingRepository: Repository<Booking>,
+    @InjectRepository(BookingMysqlEntity)
+    private readonly bookingRepository: Repository<BookingMysqlEntity>,
   ) {}
 
   async bookFlight(
     flightBookingParams: IFlightBookingParams,
-  ): Promise<Booking[]> {
+  ): Promise<BookingMysqlEntity[]> {
     // Setup query for stored procedure
     try {
       const query = 'CALL CreateBooking(?, ?, ?, ?, ?, @bookingReference)';
@@ -37,5 +37,11 @@ export class FlightBookingService {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  getBooking(bookingReference: string): Promise<BookingMysqlEntity[]> {
+    return this.bookingRepository.find({
+      where: { bookingReference },
+    });
   }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 
 import { FlightBookingService } from './flight-Booking.service';
 import { IFlightBookingParams } from './utils/common/flight-booking-params.interface';
@@ -10,5 +10,10 @@ export class FlightBookingController {
   @Post()
   BookingFlights(@Body() flightBookingParams: IFlightBookingParams) {
     return this.flightBookingService.bookFlight(flightBookingParams);
+  }
+
+  @Get('mysql')
+  getBooking(@Query('bookingReference') bookingReference: string) {
+    return this.flightBookingService.getBooking(bookingReference);
   }
 }

@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 
-import { Airport } from './mysql-db-entities/airport/airport.entity';
-import { Booking } from './mysql-db-entities/booking/booking.entity';
+// Mysql Models
+import { AirportMysqlEntity } from './mysql-db-entities/airport/airport.entity';
+import { BookingMysqlEntity } from './mysql-db-entities/booking/booking.entity';
 import { Flight } from './mysql-db-entities/flight/flight.entity';
-import { FlightModel } from './mysql-db-entities/flight-model/flight-model.entity';
 import { Ticket } from './mysql-db-entities/ticket/ticket.entity';
 import { Passenger } from './mysql-db-entities/passenger/passenger.entity';
 
+// Modules
 import { FlightSearchModule } from './flight-search/flight-search.module';
 import { FlightBookingModule } from './flight-booking/flight-booking.module';
 import { AirportModule } from './airports/airports.module';
@@ -17,6 +19,15 @@ import { AirportModule } from './airports/airports.module';
   imports: [
     ConfigModule.forRoot({
       // isGlobal: true, // no need to import into other modules
+    }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGODB_URI'),
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }),
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -28,7 +39,7 @@ import { AirportModule } from './airports/airports.module';
         username: configService.get<string>('MYSQL_DB_USERNAME'),
         password: configService.get<string>('MYSQL_DB_PASSWORD'),
         database: configService.get<string>('MYSQL_DB_NAME'),
-        entities: [Airport, Booking, Flight, FlightModel, Passenger, Ticket],
+        entities: [AirportMysqlEntity, BookingMysqlEntity, Flight, Passenger, Ticket],
         /* Nestjs documentation says to not set synchronize to true in production
            https://docs.nestjs.com/techniques/database
         */

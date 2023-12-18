@@ -2,16 +2,24 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
-import { Airport } from "src/mysql-db-entities/airport/airport.entity";
+import { AirportMysqlEntity } from "src/mysql-db-entities/airport/airport.entity";
+import { AirportMongooseModel } from "src/mongoose-models/airport/airport.schema";
+import { Model } from "mongoose";
+import { InjectModel } from "@nestjs/mongoose";
 
 @Injectable()
 export class AirportService {
   constructor(
-    @InjectRepository(Airport) 
-    private readonly airportRepository: Repository<Airport>,
+    @InjectRepository(AirportMysqlEntity) 
+    private readonly airportRepository: Repository<AirportMysqlEntity>,
+    @InjectModel(AirportMongooseModel.name) private readonly airportModel: Model<AirportMongooseModel>
   ) {}
 
- async getAirports(): Promise<Airport[]> {
+  async getAirportsFromMysql(): Promise<AirportMysqlEntity[]> {
     return await this.airportRepository.find();
+  }
+
+  async getAirportsFromMongoose(): Promise<AirportMongooseModel[]> {
+    return await this.airportModel.find().exec();
   }
 }
