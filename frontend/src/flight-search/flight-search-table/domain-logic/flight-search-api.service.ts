@@ -3,7 +3,7 @@ import axios from 'axios';
 import { IFlightSearchParams } from '../../../flight-search/utils/common/flight-search-params';
 import { IFoundFlights } from '../../../flight-search/utils/common/flight.interface';
 
-const BASE_URL = 'http://localhost:8080/api/flight-search';
+const BASE_URL = 'http://localhost:3000/api/flight-search';
 
 export const searchFlights = async (
   searchParams: IFlightSearchParams

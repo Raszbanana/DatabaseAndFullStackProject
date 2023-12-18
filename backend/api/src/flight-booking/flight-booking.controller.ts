@@ -3,7 +3,7 @@ import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { FlightBookingService } from './flight-Booking.service';
 import { IFlightBookingParams } from './utils/common/flight-booking-params.interface';
 
-@Controller('flight-Booking')
+@Controller('flight-booking')
 export class FlightBookingController {
   constructor(private flightBookingService: FlightBookingService) {}
 
