@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { IAirport } from '../../utils/common';
 
-const BASE_URL = 'http://localhost:3000/api/airports/mysql';
+const BASE_URL =
+  'https://databaseandfullstack-backend.onrender.com/api/airports/mysql';
 
 export const getAirports = async (): Promise<IAirport[]> => {
   try {
