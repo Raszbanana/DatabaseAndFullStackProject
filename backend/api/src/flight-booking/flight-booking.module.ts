@@ -5,11 +5,13 @@ import { BookingMysqlEntity } from 'src/mysql-db-entities/booking/booking.entity
 
 import { FlightBookingService } from './flight-booking.service';
 import { FlightBookingController } from './flight-booking.controller';
-import { MongooseModule } from '@nestjs/mongoose';
-import { BookingMongooseModel, BookingSchema } from 'src/mongoose-models/booking/booking.schema';
+// import { MongooseModule } from '@nestjs/mongoose';
+// import { BookingMongooseModel, BookingSchema } from 'src/mongoose-models/booking/booking.schema';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([BookingMysqlEntity]), MongooseModule.forFeature([{ name: BookingMongooseModel.name, schema: BookingSchema }])],
+  imports: [TypeOrmModule.forFeature([BookingMysqlEntity]), 
+  // MongooseModule.forFeature([{ name: BookingMongooseModel.name, schema: BookingSchema }])
+],
   providers: [FlightBookingService],
   controllers: [FlightBookingController],
   exports: [FlightBookingService],

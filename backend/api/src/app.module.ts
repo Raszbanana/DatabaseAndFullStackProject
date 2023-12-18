@@ -20,15 +20,15 @@ import { AirportModule } from './airports/airports.module';
     ConfigModule.forRoot({
       // isGlobal: true, // no need to import into other modules
     }),
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGODB_URI'),
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }),
-    }),
+    // MongooseModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   inject: [ConfigService],
+    //   useFactory: async (configService: ConfigService) => ({
+    //     uri: configService.get<string>('MONGODB_URI'),
+    //     useNewUrlParser: true,
+    //     useUnifiedTopology: true,
+    //   }),
+    // }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
