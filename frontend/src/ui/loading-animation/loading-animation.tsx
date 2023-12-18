@@ -8,7 +8,7 @@ const LoadingAnimation: React.FC<LoadingAnimationProps> = () => {
   return (
     <div className="full-screen-overlay">
       <div className="loading">
-        <div className="plane">
+        <div className="plane-animation">
           <FlightIcon name="airplane-sharp" />
         </div>
       </div>

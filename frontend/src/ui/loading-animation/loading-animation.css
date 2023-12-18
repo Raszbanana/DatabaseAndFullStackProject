@@ -25,7 +25,7 @@
     opacity: 0;
   }
 }
-.plane {
+.plane-animation {
   position: absolute;
   top: 0;
   left: 0;
@@ -42,7 +42,7 @@
     transform: rotate(360deg);
   }
 }
-.plane .icon {
+.plane-animation .icon {
   font-size: 50px;
   color: #fff;
   position: absolute;
