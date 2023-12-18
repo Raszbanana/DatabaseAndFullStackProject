@@ -3,7 +3,7 @@ import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { FlightBookingService } from './flight-Booking.service';
 import { IFlightBookingParams } from './utils/common/flight-booking-params.interface';
 
-@Controller('flight-Booking')
+@Controller('flight-booking')
 export class FlightBookingController {
   constructor(private flightBookingService: FlightBookingService) {}
 
@@ -11,6 +11,15 @@ export class FlightBookingController {
   BookingFlights(@Body() flightBookingParams: IFlightBookingParams) {
     return this.flightBookingService.bookFlight(flightBookingParams);
   }
+
+  // @Post('mysql/multiple-passengers')
+  // BookingFlightsForMultiplePassengers(
+  //   @Body() flightBookingParams: IFlightBookingParams[],
+  // ) {
+  //   return this.flightBookingService.bookFlightForMultiplePassengers(
+  //     flightBookingParams,
+  //   );
+  // }
 
   @Get('mysql')
   getBooking(@Query('bookingReference') bookingReference: string) {
