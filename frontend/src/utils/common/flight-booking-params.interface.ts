@@ -1,4 +1,4 @@
-export interface IFlightBooking {
+export interface IFlightBookingParams {
   firstName: string;
   lastName: string;
   passportNumber: string;
