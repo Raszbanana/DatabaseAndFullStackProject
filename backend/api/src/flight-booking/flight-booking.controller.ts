@@ -7,7 +7,7 @@ import { IFlightBookingParams } from './utils/common/flight-booking-params.inter
 export class FlightBookingController {
   constructor(private flightBookingService: FlightBookingService) {}
 
-  @Post()
+  @Post('mysql')
   BookingFlights(@Body() flightBookingParams: IFlightBookingParams) {
     return this.flightBookingService.bookFlight(flightBookingParams);
   }
