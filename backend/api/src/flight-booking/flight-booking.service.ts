@@ -19,13 +19,13 @@ export class FlightBookingService {
     // Setup query for stored procedure
     try {
       const query = 'CALL CreateBooking(?, ?, ?, ?, ?, @bookingReference)';
-
+      console.log(flightBookingParams);
       await this.bookingRepository.query(query, [
         flightBookingParams.firstName,
         flightBookingParams.lastName,
         flightBookingParams.passportNumber,
         flightBookingParams.nationality,
-        flightBookingParams.flightNumber,
+        flightBookingParams.flightId,
       ]);
 
       const result = await this.bookingRepository.query(
@@ -38,6 +38,31 @@ export class FlightBookingService {
       console.log(error);
     }
   }
+
+  // async bookFlightForMultiplePassengers(flightBookingParams: IFlightBookingParams[]): Promise<string> {
+  //   try {
+  //     const passengerInfo = flightBookingParams.map((params) => [
+  //       params.firstName,
+  //       params.lastName,
+  //       params.passportNumber,
+  //       params.nationality,
+  //     ]);
+
+  //     const query = 'CALL CreateBookingWithMultiplePassengers(?, ?, @bookingReference)';
+  //     await this.bookingRepository.query(query, [JSON.stringify(passengerInfo)], flightBookingParams[0].flightNumber);
+
+  //     const result = await this.bookingRepository.query(
+  //       'SELECT @bookingReference as bookingReference',
+  //     );
+
+  //     const bookingReference = result[0].bookingReference;
+  //     console.log(bookingReference);
+  //     return bookingReference;
+  //   } catch (error) {
+  //     console.log(error);
+  //     throw new Error('Error booking flight');
+  //   }
+  // }
 
   getBooking(bookingReference: string): Promise<BookingMysqlEntity[]> {
     return this.bookingRepository.find({

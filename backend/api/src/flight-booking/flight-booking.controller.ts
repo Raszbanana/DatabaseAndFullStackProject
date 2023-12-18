@@ -12,6 +12,15 @@ export class FlightBookingController {
     return this.flightBookingService.bookFlight(flightBookingParams);
   }
 
+  // @Post('mysql/multiple-passengers')
+  // BookingFlightsForMultiplePassengers(
+  //   @Body() flightBookingParams: IFlightBookingParams[],
+  // ) {
+  //   return this.flightBookingService.bookFlightForMultiplePassengers(
+  //     flightBookingParams,
+  //   );
+  // }
+
   @Get('mysql')
   getBooking(@Query('bookingReference') bookingReference: string) {
     return this.flightBookingService.getBooking(bookingReference);
