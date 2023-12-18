@@ -20,7 +20,7 @@ export const searchFlights = async (
     if (response.status !== 200) {
       throw new Error('Failed to fetch flight data');
     }
-
+    console.log('response', response.data);
     return response.data;
   } catch (error) {
     console.error(error);
