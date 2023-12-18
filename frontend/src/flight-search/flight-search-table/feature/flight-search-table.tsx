@@ -1,24 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import FoundFlight from '../../../ui/found-flight/found-flight';
 
-import {
-  IFlight,
-  IFoundFlights,
-} from '../../../flight-search/utils/common/flight.interface';
+import { IFlight } from '../../../flight-search/utils/common/flight.interface';
 import './flight-search-table.css';
 import { searchFlights } from '../domain-logic/flight-search-api.service';
 import FlightIcon from '@mui/icons-material/Flight';
 import DatePicker from '../../../ui/date-picker/date-picker';
 import Cart from '../../../ui/cart/cart';
+import { useQuery } from 'react-query';
+import LoadingAnimation from '../../../ui/loading-animation/loading-animation';
 
 const FlightSearchTable: React.FC = () => {
-  const [flights, setFlights] = useState<IFoundFlights>({
-    departureFlights: [],
-    returnFlights: [],
-  });
-
   const flightSearchParams = useSelector(
     (state: any) => state.flightSearchParams
   );
@@ -43,11 +37,18 @@ const FlightSearchTable: React.FC = () => {
     });
   };
 
-  useEffect(() => {
-    searchFlights(flightSearchParams).then((flights) => {
-      setFlights(flights);
-    });
-  }, [flightSearchParams]);
+  const fetchFlights = async () => {
+    return await searchFlights(flightSearchParams);
+  };
+
+  const { data: flights, error, isLoading } = useQuery('flights', fetchFlights);
+
+  if (isLoading) return <LoadingAnimation />;
+  if (error) return <div>An error occurred: {(error as Error).message}</div>;
+
+  const updateFlights = () => {
+    console.log('flights!');
+  };
 
   return (
     <div className="flight-search">
@@ -61,14 +62,27 @@ const FlightSearchTable: React.FC = () => {
             {flightSearchParams.arrivalAirport.airportCode}]
           </h1>
         </div>
-        <DatePicker date={flightSearchParams.departureDate} />
-        {flights.departureFlights.map((flight, index) => (
-          <FoundFlight
-            onClickEvent={() => selectDepartureFlight(flight)}
-            flight={flight}
-            isWithPriceButton={true}
-          />
-        ))}
+        <DatePicker
+          date={flightSearchParams.departureDate}
+          onChangeDateEvent={updateFlights}
+        />
+
+        {flights ? (
+          <div>
+            {flights.departureFlights.map((flight, index) => (
+              <FoundFlight
+                onClickEvent={() => selectDepartureFlight(flight)}
+                key={index}
+                flight={flight}
+                isWithPriceButton={true}
+              />
+            ))}
+          </div>
+        ) : (
+          <div>
+            <p>There were no flights in the selected date</p>
+          </div>
+        )}
 
         {flightSearchParams.returnDate && (
           <div>
@@ -81,15 +95,26 @@ const FlightSearchTable: React.FC = () => {
                 {flightSearchParams.departureAirport.airportCode}]
               </h2>
             </div>
-            <DatePicker date={flightSearchParams.returnDate} />
-            {flights.returnFlights.map((flight, index) => (
-              <FoundFlight
-                onClickEvent={() => selectReturnFlight(flight)}
-                key={index}
-                flight={flight}
-                isWithPriceButton={true}
-              />
-            ))}
+            <DatePicker
+              date={flightSearchParams.returnDate}
+              onChangeDateEvent={updateFlights}
+            />
+            {flights ? (
+              <div>
+                {flights.returnFlights.map((flight, index) => (
+                  <FoundFlight
+                    onClickEvent={() => selectReturnFlight(flight)}
+                    key={index}
+                    flight={flight}
+                    isWithPriceButton={true}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div>
+                <p>There were no flights in the selected date</p>
+              </div>
+            )}
           </div>
         )}
       </div>

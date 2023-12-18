@@ -5,10 +5,13 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import './date-picker.css';
 
-const DatePicker = ({ date }) => {
+const DatePicker: React.FC<{
+  date: Date;
+  onChangeDateEvent: () => void;
+}> = ({ date, onChangeDateEvent }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(
     date || new Date()
-  ); // Initialize selectedDate
+  );
 
   const startDateDays = isMobile ? 1 : 2;
   const finishDateDays = isMobile ? 2 : 3;
@@ -23,15 +26,21 @@ const DatePicker = ({ date }) => {
       dayjs(prevDate)
         .add(finishDateDays + 1, 'day')
         .toDate()
-    ); // Update selectedDate
+    );
   };
 
   const dateBackwards = () => {
+    onChangeDateEvent();
     setSelectedDate((prevDate) =>
       dayjs(prevDate)
         .subtract(startDateDays + 1, 'day')
         .toDate()
-    ); // Update selectedDate
+    );
+  };
+
+  const handleClick = (date: Date) => {
+    setSelectedDate(date);
+    onChangeDateEvent();
   };
 
   let currentDate: dayjs.Dayjs = startDate;
@@ -45,7 +54,7 @@ const DatePicker = ({ date }) => {
       <KeyboardArrowLeftIcon onClick={dateBackwards} />
       {dateRange.map((date, index) => (
         <div
-          onClick={() => setSelectedDate(date.toDate())}
+          onClick={() => handleClick(date.toDate())}
           className={
             selectedDate && date.isSame(dayjs(selectedDate), 'day')
               ? 'date-picker__day date-picker__day--selected'

@@ -1,0 +1,56 @@
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  background-color: rgb(212 234 241);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+@keyframes load {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  10% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+.plane-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  animation: rotate 2s linear infinite;
+  animation-delay: -1.5s;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.plane-animation .icon {
+  font-size: 50px;
+  color: #fff;
+  position: absolute;
+  top: -10px;
+  left: 80px;
+  transform: rotate(45deg);
+}
+
+.plane {
+  position: relative;
+}

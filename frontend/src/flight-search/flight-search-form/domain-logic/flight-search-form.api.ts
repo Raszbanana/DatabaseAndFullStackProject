@@ -11,7 +11,6 @@ export const getAirports = async (): Promise<IAirport[]> => {
       throw new Error('Failed to fetch flight data');
     }
 
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);

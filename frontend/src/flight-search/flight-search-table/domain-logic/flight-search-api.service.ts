@@ -9,13 +9,17 @@ export const searchFlights = async (
   searchParams: IFlightSearchParams
 ): Promise<IFoundFlights> => {
   try {
-    const response = await axios.get(BASE_URL, { params: searchParams });
+    const flightSearchParams = {
+      ...searchParams,
+      departureAirport: searchParams.departureAirport.airportId,
+      arrivalAirport: searchParams.arrivalAirport.airportId,
+    };
+    const response = await axios.get(BASE_URL, { params: flightSearchParams });
 
     if (response.status !== 200) {
       throw new Error('Failed to fetch flight data');
     }
 
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);

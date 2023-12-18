@@ -1,5 +1,6 @@
 import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import FlightBookingPage from './pages/FlightBookingPage';
 import NoPage from './pages/NoPage';
@@ -24,15 +25,19 @@ function App() {
     },
   ]);
 
+  const queryClient = new QueryClient();
+
   return (
-    <div className="background-container">
-      <div className="App">
-        <Navbar></Navbar>
-        <div className="page">
-          <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <div className="background-container">
+        <div className="App">
+          <Navbar></Navbar>
+          <div className="page">
+            <RouterProvider router={router} />
+          </div>
         </div>
       </div>
-    </div>
+    </QueryClientProvider>
   );
 }
 

@@ -62,8 +62,8 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
   const dispatch = useDispatch();
 
   const searchParams: IFlightSearchParams = {
-    departureAirportId: departureAirport.airportId,
-    arrivalAirportId: arrivalAirport.airportId,
+    departureAirport: departureAirport,
+    arrivalAirport: arrivalAirport,
     departureDate: departureDate,
     returnDate: isReturnTrip ? returnDate : undefined,
     numberOfPassengers,
@@ -271,7 +271,7 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
               </div>
             </Grid>
             <Grid item lg md={12} xs={12}>
-              <div className="button" onClick={handleSubmit}>
+              <div className="button">
                 <FlightButton type="submit">Search</FlightButton>
               </div>
             </Grid>
