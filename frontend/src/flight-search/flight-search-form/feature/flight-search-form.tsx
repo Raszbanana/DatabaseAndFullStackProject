@@ -39,7 +39,7 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
 
   const [airports, setAirports] = useState<IAirport[]>([]);
 
-  const convertAndSetDepartureDate = (
+  const convertAndSetDate = (
     chosenDepartureDate: Date | null,
     isReturn?: boolean
   ) => {
@@ -101,16 +101,13 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
     setNumberOfPassengers(event.target.value as number);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
+  const handleSubmit = async () => {
+    if (arrivalAirport && departureAirport && departureDate) {
       dispatch({
         type: 'UPDATE_FLIGHTS_SEARCH_PARAMS',
         payload: searchParams,
       });
       navigate('/book-flight', { state: { fromApp: true } });
-    } catch (error) {
-      console.error(error);
     }
   };
 
@@ -154,7 +151,7 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
   return (
     <div>
       <div className="flight-search-form_container">
-        <form className="flight-search-form" onSubmit={handleSubmit}>
+        <form className="flight-search-form">
           <Grid
             container
             spacing={3}
@@ -220,7 +217,7 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
                     label="Departure Date"
                     value={dayjs(departureDate).toDate()}
                     onChange={(selectedDate: Date | null) =>
-                      convertAndSetDepartureDate(selectedDate)
+                      convertAndSetDate(selectedDate)
                     }
                   />
                 </LocalizationProvider>
@@ -243,7 +240,7 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
                       disabled={departureDate === null}
                       value={dayjs(returnDate).toDate()}
                       onChange={(selectedDate: Date | null) =>
-                        convertAndSetDepartureDate(selectedDate, true)
+                        convertAndSetDate(selectedDate, true)
                       }
                     />
                   </LocalizationProvider>
@@ -272,7 +269,7 @@ const FlightSearchForm: React.FC<FlightSearchFormProps> = ({
             </Grid>
             <Grid item lg md={12} xs={12}>
               <div className="button">
-                <FlightButton type="submit">Search</FlightButton>
+                <FlightButton onClick={handleSubmit}>Search</FlightButton>
               </div>
             </Grid>
           </Grid>

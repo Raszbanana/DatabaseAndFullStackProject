@@ -32,7 +32,7 @@ const ItineraryConfirmation = () => {
     lastName: passengerDetails.passengers[0].surname,
     passportNumber: passengerDetails.passengers[0].passportNumber,
     nationality: passengerDetails.passengers[0].nationality,
-    flightId: trip.departureFlight.flightId,
+    flightId: trip.departureFlight.id,
   };
 
   const createBooking = async () => {

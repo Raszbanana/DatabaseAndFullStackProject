@@ -3,5 +3,5 @@ export interface IFlightBookingParams {
   lastName: string;
   passportNumber: string;
   nationality: string;
-  flightNumber: string;
+  flightId: number;
 }
