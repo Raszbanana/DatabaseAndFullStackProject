@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Flight } from '../mysql-db-entities/flight/flight.entity';
+import { FlightMysqlEntity } from '../mysql-db-entities/flight/flight.entity';
 import { IFlightSearchParams } from '../flight-search/utils/common/flight-search-params';
 import { IFlightSearchResponse } from './utils/common/flight-search-response.interface';
 import { IFlight } from './utils/common/flight.interface';
@@ -10,8 +10,8 @@ import { IFlight } from './utils/common/flight.interface';
 @Injectable()
 export class FlightSearchService {
   constructor(
-    @InjectRepository(Flight)
-    private readonly flightRepository: Repository<Flight>,
+    @InjectRepository(FlightMysqlEntity)
+    private readonly flightRepository: Repository<FlightMysqlEntity>,
   ) {}
 
   async searchFlights(

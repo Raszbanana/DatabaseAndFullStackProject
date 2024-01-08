@@ -1,20 +1,20 @@
-// import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-// import { Document } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-// @Schema({ collection: 'airports' })
-// export class AirportMongooseModel {
-//   @Prop()
-//   airportId: number;
+@Schema({ collection: 'airports' })
+export class AirportMongooseModel {
+  @Prop()
+  airportId: number;
 
-//   @Prop()
-//   airportCode: string;
+  @Prop()
+  airportCode: string;
 
-//   @Prop()
-//   city: string;
+  @Prop()
+  city: string;
 
-//   @Prop()
-//   country: string;
-// }
+  @Prop()
+  country: string;
+}
 
-// export type AirportDocument = AirportMongooseModel & Document;
-// export const AirportSchema = SchemaFactory.createForClass(AirportMongooseModel);
+export type AirportDocument = AirportMongooseModel & Document;
+export const AirportSchema = SchemaFactory.createForClass(AirportMongooseModel);

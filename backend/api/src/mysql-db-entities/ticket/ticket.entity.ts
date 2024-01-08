@@ -1,22 +1,22 @@
 import { Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from 'typeorm';
-import { Passenger } from '../passenger/passenger.entity';
+import { PassengerMysqlEntity } from '../passenger/passenger.entity';
 import { BookingMysqlEntity } from '../booking/booking.entity';
-import { Flight } from '../flight/flight.entity';
+import { FlightMysqlEntity } from '../flight/flight.entity';
 
-@Entity()
-export class Ticket {
+@Entity({name: 'tickets'})
+export class TicketMysqlEntity {
   @PrimaryGeneratedColumn()
   ticketId: number;
 
-  @ManyToOne(() => Passenger)
+  @ManyToOne(() => PassengerMysqlEntity)
   @JoinColumn({ name: 'passengerId' })
-  passengerId: Passenger;
+  passengerId: PassengerMysqlEntity;
 
   @ManyToOne(() => BookingMysqlEntity)
   @JoinColumn({ name: 'bookingId' })
   bookingId: BookingMysqlEntity;
 
-  @ManyToOne(() => Flight)
+  @ManyToOne(() => FlightMysqlEntity)
   @JoinColumn({ name: 'flightId' })
-  flightId: Flight;
+  flightId: FlightMysqlEntity;
 }

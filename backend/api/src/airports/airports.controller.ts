@@ -12,8 +12,8 @@ export class AirportController {
     return this.airportService.getAirportsFromMysql();
   }
 
-  // @Get('mongoose')
-  // getAirportsFromMongoose(): Promise<any> {
-  //   return this.airportService.getAirportsFromMongoose();
-  // }
+  @Get('mongoose')
+  getAirportsFromMongoose(): Promise<any> {
+    return this.airportService.getAirportsFromMongoose();
+  }
 }

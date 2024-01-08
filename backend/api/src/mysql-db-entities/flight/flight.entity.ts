@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
-export class Flight {
+@Entity({name: 'flights'})
+export class FlightMysqlEntity {
   @PrimaryGeneratedColumn()
   flightId: number;
 
