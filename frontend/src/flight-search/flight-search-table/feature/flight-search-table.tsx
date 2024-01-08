@@ -67,9 +67,9 @@ const FlightSearchTable: React.FC = () => {
           onChangeDateEvent={updateFlights}
         />
 
-        {flights ? (
+        {flights && flights.departureFlights?.length > 0 ? (
           <div>
-            {flights.departureFlights.map((flight, index) => (
+            {flights?.departureFlights.map((flight, index) => (
               <FoundFlight
                 onClickEvent={() => selectDepartureFlight(flight)}
                 key={index}
@@ -79,8 +79,8 @@ const FlightSearchTable: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div>
-            <p>There were no flights in the selected date</p>
+          <div className="flight-search__empty">
+            There were no flights in the selected date
           </div>
         )}
 
@@ -99,7 +99,7 @@ const FlightSearchTable: React.FC = () => {
               date={flightSearchParams.returnDate}
               onChangeDateEvent={updateFlights}
             />
-            {flights ? (
+            {flights && flights.returnFlights?.length > 0 ? (
               <div>
                 {flights.returnFlights.map((flight, index) => (
                   <FoundFlight
@@ -111,9 +111,7 @@ const FlightSearchTable: React.FC = () => {
                 ))}
               </div>
             ) : (
-              <div>
-                <p>There were no flights in the selected date</p>
-              </div>
+              <div>There were no flights in the selected date</div>
             )}
           </div>
         )}

@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { IFlightBookingParams } from '../../utils/common/flight-booking-params.interface';
 
-const BASE_URL = 'http://localhost:3000/api/flight-booking/mysql';
+const BASE_URL =
+  'https://databaseandfullstack-backend.onrender.com/api/flight-booking/mysql';
 
 export const postBooking = async (
   bookingParams: IFlightBookingParams

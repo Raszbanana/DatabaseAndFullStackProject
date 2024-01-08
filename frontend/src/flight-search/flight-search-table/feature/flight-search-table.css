@@ -39,6 +39,16 @@
   text-align: center;
 }
 
+.flight-search__empty {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  justify-content: center;
+}
+
 .flight-search__text {
   color: #4745b3;
 }
