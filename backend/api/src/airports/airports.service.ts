@@ -37,5 +37,8 @@ export class AirportService {
     )
 
     console.log(result.records.map(record => record.get('a').properties))
+
+    // end the session
+    await session.close()
   }
 }
