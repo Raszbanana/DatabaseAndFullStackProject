@@ -16,4 +16,9 @@ export class AirportController {
   getAirportsFromMongoose(): Promise<any> {
     return this.airportService.getAirportsFromMongoose();
   }
+
+  @Get('neo4j')
+  getAirportsFromNeo4j(): Promise<void> {
+    return this.airportService.getAirportsFromNeo4j();
+  }
 }

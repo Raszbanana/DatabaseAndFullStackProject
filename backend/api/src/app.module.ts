@@ -15,7 +15,6 @@ import { PassengerMysqlEntity } from './mysql-db-entities/passenger/passenger.en
 import { FlightSearchModule } from './flight-search/flight-search.module';
 import { FlightBookingModule } from './flight-booking/flight-booking.module';
 import { AirportModule } from './airports/airports.module';
-
 @Module({
   imports: [
     ConfigModule.forRoot({
