@@ -1,23 +1,18 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
-import { PassengerMongooseModel } from '../passenger/passenger.schema';
-import { BookingMongooseModel } from '../booking/booking.schema';
-import { FlightMongooseModel } from '../flight/flight.schema';
+import { IPassenger } from '../passenger/passenger.interface';
 
-@Schema()
+@Schema({ collection: 'tickets'})
 export class TicketMongooseModel {
-  @Prop()
-  ticketId: number;
+  @Prop({ type: Object })
+  passenger: IPassenger;
 
-  @Prop({ type: PassengerMongooseModel })
-  passengerId: PassengerMongooseModel;
+  @Prop({ type: Types.ObjectId })
+  bookingId: Types.ObjectId;
 
-  @Prop({ type: BookingMongooseModel })
-  bookingId: BookingMongooseModel;
-
-  @Prop({ type: FlightMongooseModel })
-  flightId: FlightMongooseModel;
+  @Prop({ type: Types.ObjectId })
+  flightId: Types.ObjectId;
 }
 
 export type TicketDocument = TicketMongooseModel & Document;

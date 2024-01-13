@@ -25,4 +25,15 @@ export class FlightBookingController {
   getBooking(@Query('bookingReference') bookingReference: string) {
     return this.flightBookingService.getBooking(bookingReference);
   }
+
+  @Post('mongoose')
+  BookingFlightsMongoose(@Body() flightBookingParams: IFlightBookingParams): Promise<string> {
+    return this.flightBookingService.bookFlightMongoose(flightBookingParams);
+  }
+
+  @Get('mongoose')
+  getBookingMongoose(@Query('bookingReference') bookingReference: string) {
+    return this.flightBookingService.getBookingMongoose(bookingReference);
+  }
+  
 }

@@ -1,8 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { IPassenger } from './passenger.interface';
 
-@Schema()
-export class PassengerMongooseModel {
+@Schema({ collection: 'passengers'})
+export class PassengerMongooseModel implements IPassenger {
   @Prop()
   passengerId: number;
 
