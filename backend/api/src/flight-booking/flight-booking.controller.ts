@@ -27,7 +27,9 @@ export class FlightBookingController {
   }
 
   @Post('mongoose')
-  BookingFlightsMongoose(@Body() flightBookingParams: IFlightBookingParams): Promise<string> {
+  BookingFlightsMongoose(
+    @Body() flightBookingParams: IFlightBookingParams,
+  ): Promise<string> {
     return this.flightBookingService.bookFlightMongoose(flightBookingParams);
   }
 
@@ -35,5 +37,9 @@ export class FlightBookingController {
   getBookingMongoose(@Query('bookingReference') bookingReference: string) {
     return this.flightBookingService.getBookingMongoose(bookingReference);
   }
-  
+
+  @Post('neo4j')
+  bookFlight(@Body() flightBookingParams: IFlightBookingParams) {
+    return this.flightBookingService.createBookingNeo4j(flightBookingParams);
+  }
 }
