@@ -123,7 +123,7 @@ export class FlightBookingService {
 
     return { ticket, flight };
   }
-  async getBookingFromNeo4j(bookingReference: string): Promise<void> {
+  async getBookingNeo4j(bookingReference: string): Promise<void> {
     const driver = neo4j.driver(
       'neo4j+s://b04c6451.databases.neo4j.io',
       neo4j.auth.basic('neo4j', 'P0pIXiJ8QGPMYDQmKoqN5lUHh9LMr0IVEEHWcNr8MVI'),
@@ -144,7 +144,7 @@ export class FlightBookingService {
     await session.close();
   }
 
-  async createBookingNeo4j(bookingParams: IFlightBookingParams): Promise<void> {
+  async bookFlightNeo4j(bookingParams: IFlightBookingParams): Promise<void> {
     const driver = neo4j.driver(
       'neo4j+s://b04c6451.databases.neo4j.io',
       neo4j.auth.basic('neo4j', 'P0pIXiJ8QGPMYDQmKoqN5lUHh9LMr0IVEEHWcNr8MVI'),

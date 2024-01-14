@@ -7,8 +7,13 @@ import { IFlightSearchParams } from '../flight-search/utils/common/flight-search
 export class FlightSearchController {
   constructor(private readonly flightSearchService: FlightSearchService) {}
 
-  @Get()
+  @Get('mysql')
   searchFlights(@Query() flightSearchParams: IFlightSearchParams) {
     return this.flightSearchService.getFlights(flightSearchParams);
+  }
+
+  @Get('neo4j')
+  searchFlightsNeo4j(@Query() flightSearchParams: IFlightSearchParams) {
+    return this.flightSearchService.getFlightsNeo4j(flightSearchParams);
   }
 }

@@ -40,6 +40,6 @@ export class FlightBookingController {
 
   @Post('neo4j')
   bookFlight(@Body() flightBookingParams: IFlightBookingParams) {
-    return this.flightBookingService.createBookingNeo4j(flightBookingParams);
+    return this.flightBookingService.bookFlightNeo4j(flightBookingParams);
   }
 }
