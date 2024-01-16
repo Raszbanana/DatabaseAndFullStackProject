@@ -47,6 +47,7 @@ export class FlightSearchService {
   }
 
   async getFlights(flightSearchParams: IFlightSearchParams): Promise<any> {
+
     const departureFlights = await this.searchFlights({
       departureDate: flightSearchParams.departureDate,
       departureAirport: flightSearchParams.departureAirport,
@@ -69,23 +70,28 @@ export class FlightSearchService {
   }
 
   async getFlightsMongoose(flightSearchParams: IFlightSearchParams): Promise<any> {
+    const departureDate = convertDepartureDateForNeo4j(flightSearchParams.departureDate);
+    const returnDate = convertDepartureDateForNeo4j(flightSearchParams.returnDate)
+
     const departureFlights = await this.flightModel.find({
-      departureDate: flightSearchParams.departureDate,
-      departureAirport: flightSearchParams.departureAirport,
-      arrivalAirport: flightSearchParams.arrivalAirport,
-      numberOfPassengers: flightSearchParams.numberOfPassengers,
+      departureDateTime: departureDate,
+      departureAirportId: flightSearchParams.departureAirport,
+      arrivalAirportId: flightSearchParams.arrivalAirport,
     });
 
+    if (returnDate) {
     const returnFlights = await this.flightModel.find({
-      departureDate: flightSearchParams.returnDate,
-      departureAirport: flightSearchParams.arrivalAirport,
-      arrivalAirport: flightSearchParams.departureAirport,
-      numberOfPassengers: flightSearchParams.numberOfPassengers,
+      departureDateTime: returnDate,
+      departureAirportId: flightSearchParams.arrivalAirport,
+      arrivalAirportId: flightSearchParams.departureAirport,
     });
-
     return {
       departureFlights,
       returnFlights,
+    };
+  }
+  return {
+      departureFlights,
     };
   }
 
