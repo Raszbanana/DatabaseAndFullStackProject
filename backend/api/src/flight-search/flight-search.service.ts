@@ -8,12 +8,16 @@ import { IFlightSearchParams } from '../flight-search/utils/common/flight-search
 import { IFlightSearchResponse } from './utils/common/flight-search-response.interface';
 import { IFlight } from './utils/common/flight.interface';
 import { convertDepartureDateForNeo4j } from './utils/convert-departure-date-for-neo4j';
+import { InjectModel } from '@nestjs/mongoose';
+import { FlightMongooseModel } from 'src/mongoose-models/flight/flight.schema';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class FlightSearchService {
   constructor(
     @InjectRepository(FlightMysqlEntity)
     private readonly flightRepository: Repository<FlightMysqlEntity>,
+    @InjectModel(FlightMongooseModel.name) private readonly flightModel: Model<FlightMongooseModel>,
   ) {}
 
   async searchFlights(
@@ -57,6 +61,27 @@ export class FlightSearchService {
           numberOfPassengers: flightSearchParams.numberOfPassengers,
         })
       : [];
+
+    return {
+      departureFlights,
+      returnFlights,
+    };
+  }
+
+  async getFlightsMongoose(flightSearchParams: IFlightSearchParams): Promise<any> {
+    const departureFlights = await this.flightModel.find({
+      departureDate: flightSearchParams.departureDate,
+      departureAirport: flightSearchParams.departureAirport,
+      arrivalAirport: flightSearchParams.arrivalAirport,
+      numberOfPassengers: flightSearchParams.numberOfPassengers,
+    });
+
+    const returnFlights = await this.flightModel.find({
+      departureDate: flightSearchParams.returnDate,
+      departureAirport: flightSearchParams.arrivalAirport,
+      arrivalAirport: flightSearchParams.departureAirport,
+      numberOfPassengers: flightSearchParams.numberOfPassengers,
+    });
 
     return {
       departureFlights,

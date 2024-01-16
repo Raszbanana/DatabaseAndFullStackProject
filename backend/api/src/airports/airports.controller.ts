@@ -18,7 +18,7 @@ export class AirportController {
   }
 
   @Get('neo4j')
-  getAirportsFromNeo4j(): Promise<{airportCode: string}[]> {
+  getAirportsFromNeo4j(): Promise<Record<'AirportCode', string>[]> {
     return this.airportService.getAirportsFromNeo4j();
   }
 }

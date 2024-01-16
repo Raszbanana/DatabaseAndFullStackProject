@@ -9,8 +9,5 @@ export class AirportMysqlEntity {
   airportCode: string;
 
   @Column()
-  city: string;
-
-  @Column()
-  country: string;
+  locationId: string;
 }

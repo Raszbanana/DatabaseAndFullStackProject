@@ -24,7 +24,7 @@ export class AirportService {
     return await this.airportModel.find().exec();
   }
 
-  async getAirportsFromNeo4j(): Promise<{ airportCode: string }[]> {
+  async getAirportsFromNeo4j(): Promise<Record<'AirportCode', string>[]> {
     try {
       const driver = neo4j.driver(
         'neo4j+s://b04c6451.databases.neo4j.io',
@@ -37,12 +37,12 @@ export class AirportService {
         'MATCH (a:Airport) RETURN a LIMIT 25',
       )
   
-      const airports = result.records.map(record => record.get('a').properties as {airportCode: string})
+      const airports: Record<'AirportCode', string>[] = result.records.map(record => record.get('a').properties)
       
       // end the session
       await session.close()
   
-      return airports as { airportCode: string }[];
+      return airports;
     } catch (error) {
     
     }
