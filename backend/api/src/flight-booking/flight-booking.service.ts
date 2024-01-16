@@ -132,18 +132,26 @@ export class FlightBookingService {
     const session = driver.session();
 
     const result = await session.run(
-      'MATCH (b:Booking) WHERE b.bookingReference = $bookingReference RETURN a LIMIT 25',
+      `MATCH (ticket:Ticket) WHERE ticket.bookingReference = $bookingReference 
+      MATCH (ticket)-[:FOR_PASSENGER]->(passenger)
+      MATCH (ticket)-[:FOR_BOOKING]->(booking)
+      MATCH (ticket)-[:FOR_FLIGHT]->(flight)
+      
+      RETURN ticket, passenger, booking, flight`,
       {
         bookingReference,
       },
     );
 
-    console.log(result.records.map((record) => record.get('b').properties));
+    const ticket = result.records[0].get('ticket').properties;
+    const passenger = result.records[0].get('passenger').properties;
+    const booking = result.records[0].get('booking').properties;
+    const flight = result.records[0].get('flight').properties;
 
     // end the session
     await session.close();
 
-    return result.records.map((record) => record.get('b').properties);
+    return { ticket, passenger, booking, flight };
   }
 
   async bookFlightNeo4j(bookingParams: IFlightBookingParams): Promise<any> {
@@ -211,13 +219,9 @@ export class FlightBookingService {
       },
     );
 
-    console.log(
-      ticket.records.map((record) => record.get('ticket').properties),
-    );
-
     // end the session
     await session.close();
 
-    return ticket.records.map((record) => record.get('ticket').properties);
+    return bookingReference;
   }
 }

@@ -42,4 +42,9 @@ export class FlightBookingController {
   bookFlight(@Body() flightBookingParams: IFlightBookingParams) {
     return this.flightBookingService.bookFlightNeo4j(flightBookingParams);
   }
+
+  @Get('neo4j')
+  getBookingNeo4j(@Query('bookingReference') bookingReference: string) {
+    return this.flightBookingService.getBookingNeo4j(bookingReference);
+  }
 }

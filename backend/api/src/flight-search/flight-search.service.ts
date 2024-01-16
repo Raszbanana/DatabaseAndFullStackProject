@@ -96,14 +96,15 @@ export class FlightSearchService {
 
     const session = driver.session();
 
-    const flights = await session.run(
+    const flightsSearchResult = await session.run(
       `
-      MATCH (flight:Flight)-[:DEPARTS_FROM]-(departureAirport:Airport)
-      MATCH (flight)-[:ARRIVES_TO]-(arrivalAirport:Airport) 
-      WHERE ID(departureAirport) = toInteger($departureAirport)
-      AND ID(arrivalAirport) = toInteger($arrivalAirport)
+      MATCH (flight:Flight)-[:DEPARTS_FROM]-(departureAirport:Airport)-[:IS_LOCATED_IN]-(departureLocation: Location)
+      MATCH (flight)-[:ARRIVES_TO]-(arrivalAirport:Airport)-[:IS_LOCATED_IN]-(arrivalLocation: Location)
+      WHERE departureAirport.airportId = toInteger($departureAirport)
+      AND arrivalAirport.airportId  = toInteger($arrivalAirport)
       AND flight.departureDateTime STARTS WITH $departureDate
-      RETURN flight, departureAirport, arrivalAirport;
+      AND flight.numberOfAvailableSeats >= toInteger($numberOfAvailableSeats)
+      RETURN flight, departureAirport, arrivalAirport, departureLocation, arrivalLocation;
       `,
       {
         departureDate: convertDepartureDateForNeo4j(
@@ -111,17 +112,48 @@ export class FlightSearchService {
         ),
         departureAirport: flightSearchParamsNeo4j.departureAirport,
         arrivalAirport: flightSearchParamsNeo4j.arrivalAirport,
+        numberOfAvailableSeats: flightSearchParamsNeo4j.numberOfPassengers,
       },
     );
 
-    console.log(
-      flights.records.map((record) => record.get('flight').properties),
+    const flights = flightsSearchResult.records.map(
+      (record) => record.get('flight').properties,
+    );
+    const departureAirport = flightsSearchResult.records.map(
+      (record) => record.get('departureAirport').properties,
+    );
+    const arrivalAirport = flightsSearchResult.records.map(
+      (record) => record.get('arrivalAirport').properties,
+    );
+
+    const departureLocation = flightsSearchResult.records.map(
+      (record) => record.get('departureLocation').properties,
+    );
+
+    const arrivalLocation = flightsSearchResult.records.map(
+      (record) => record.get('arrivalLocation').properties,
     );
 
     // end the session
     await session.close();
 
-    return flights.records.map((record) => record.get('flight').properties);
+    const flightsObjects = flights.map((flight, index) => {
+      return {
+        flightId: flight.flightId,
+        flightNumber: flight.flightNumber,
+        departureDateTime: flight.departureDateTime,
+        arrivalDateTime: flight.arrivalDateTime,
+        departureAirportCode: departureAirport[index].airportCode,
+        departureAirportCity: departureLocation[index].city,
+        departureAirportCountry: departureLocation[index].country,
+        arrivalAirportCode: arrivalAirport[index].airportCode,
+        arrivalAirportCity: arrivalLocation[index].city,
+        arrivalAirportCountry: arrivalLocation[index].country,
+        numberOfAvailableSeats: flight.numberOfAvailableSeats.low,
+      };
+    });
+
+    return flightsObjects;
   }
 }
 
