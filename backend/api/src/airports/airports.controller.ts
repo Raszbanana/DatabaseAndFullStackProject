@@ -2,6 +2,7 @@ import { Controller, Get } from "@nestjs/common";
 
 import { AirportMysqlEntity } from "src/mysql-db-entities/airport/airport.entity";
 import { AirportService } from "./airports.service";
+import { INeo4jAirport } from "src/neo4j-model/airport-neo4j.interface";
 
 @Controller('airports')
 export class AirportController {
@@ -18,7 +19,7 @@ export class AirportController {
   }
 
   @Get('neo4j')
-  getAirportsFromNeo4j(): Promise<Record<'AirportCode', string>[]> {
+  getAirportsFromNeo4j(): Promise<INeo4jAirport[]> {
     return this.airportService.getAirportsFromNeo4j();
   }
 }

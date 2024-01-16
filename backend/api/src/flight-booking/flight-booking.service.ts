@@ -13,7 +13,6 @@ import { generateBookingReference } from './utils/common/generate-booking-ref';
 import { BookingMongooseModel } from 'src/mongoose-models/booking/booking.schema';
 import { TicketMongooseModel } from 'src/mongoose-models/ticket/ticket.schema';
 import { IPassenger } from 'src/mongoose-models/passenger/passenger.interface';
-import { generateRandomString } from './utils/get-random-string';
 
 @Injectable()
 export class FlightBookingService {
@@ -53,9 +52,8 @@ export class FlightBookingService {
   }
 
   getBooking(bookingReference: string): Promise<BookingMysqlEntity[]> {
-    return this.bookingRepository.find({
-      where: { bookingReference },
-    });
+    const query = 'SELECT * FROM flight_system.all_booking_information WHERE bookingReference = ?';
+    return this.bookingRepository.query(query, [bookingReference]);
   }
 
   async bookFlightMongoose(
@@ -188,7 +186,7 @@ export class FlightBookingService {
       RETURN booking
       `,
       {
-        bookingReference: generateRandomString(10),
+        bookingReference: generateBookingReference(),
       },
     );
 
