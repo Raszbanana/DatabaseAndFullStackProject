@@ -123,7 +123,7 @@ export class FlightBookingService {
 
     return { ticket, flight };
   }
-  async getBookingNeo4j(bookingReference: string): Promise<void> {
+  async getBookingNeo4j(bookingReference: string): Promise<any> {
     const driver = neo4j.driver(
       'neo4j+s://b04c6451.databases.neo4j.io',
       neo4j.auth.basic('neo4j', 'P0pIXiJ8QGPMYDQmKoqN5lUHh9LMr0IVEEHWcNr8MVI'),
@@ -142,9 +142,11 @@ export class FlightBookingService {
 
     // end the session
     await session.close();
+
+    return result.records.map((record) => record.get('b').properties);
   }
 
-  async bookFlightNeo4j(bookingParams: IFlightBookingParams): Promise<void> {
+  async bookFlightNeo4j(bookingParams: IFlightBookingParams): Promise<any> {
     const driver = neo4j.driver(
       'neo4j+s://b04c6451.databases.neo4j.io',
       neo4j.auth.basic('neo4j', 'P0pIXiJ8QGPMYDQmKoqN5lUHh9LMr0IVEEHWcNr8MVI'),
@@ -215,5 +217,7 @@ export class FlightBookingService {
 
     // end the session
     await session.close();
+
+    return ticket.records.map((record) => record.get('ticket').properties);
   }
 }
