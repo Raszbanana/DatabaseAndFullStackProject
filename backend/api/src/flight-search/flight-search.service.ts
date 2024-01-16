@@ -8,12 +8,16 @@ import { IFlightSearchParams } from '../flight-search/utils/common/flight-search
 import { IFlightSearchResponse } from './utils/common/flight-search-response.interface';
 import { IFlight } from './utils/common/flight.interface';
 import { convertDepartureDateForNeo4j } from './utils/convert-departure-date-for-neo4j';
+import { InjectModel } from '@nestjs/mongoose';
+import { FlightMongooseModel } from 'src/mongoose-models/flight/flight.schema';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class FlightSearchService {
   constructor(
     @InjectRepository(FlightMysqlEntity)
     private readonly flightRepository: Repository<FlightMysqlEntity>,
+    @InjectModel(FlightMongooseModel.name) private readonly flightModel: Model<FlightMongooseModel>,
   ) {}
 
   async searchFlights(
@@ -43,6 +47,7 @@ export class FlightSearchService {
   }
 
   async getFlights(flightSearchParams: IFlightSearchParams): Promise<any> {
+
     const departureFlights = await this.searchFlights({
       departureDate: flightSearchParams.departureDate,
       departureAirport: flightSearchParams.departureAirport,
@@ -61,6 +66,32 @@ export class FlightSearchService {
     return {
       departureFlights,
       returnFlights,
+    };
+  }
+
+  async getFlightsMongoose(flightSearchParams: IFlightSearchParams): Promise<any> {
+    const departureDate = convertDepartureDateForNeo4j(flightSearchParams.departureDate);
+    const returnDate = convertDepartureDateForNeo4j(flightSearchParams.returnDate)
+
+    const departureFlights = await this.flightModel.find({
+      departureDateTime: departureDate,
+      departureAirportId: flightSearchParams.departureAirport,
+      arrivalAirportId: flightSearchParams.arrivalAirport,
+    });
+
+    if (returnDate) {
+    const returnFlights = await this.flightModel.find({
+      departureDateTime: returnDate,
+      departureAirportId: flightSearchParams.arrivalAirport,
+      arrivalAirportId: flightSearchParams.departureAirport,
+    });
+    return {
+      departureFlights,
+      returnFlights,
+    };
+  }
+  return {
+      departureFlights,
     };
   }
 

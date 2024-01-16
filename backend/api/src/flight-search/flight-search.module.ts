@@ -5,9 +5,11 @@ import { FlightMysqlEntity } from 'src/mysql-db-entities/flight/flight.entity';
 
 import { FlightSearchService } from './flight-search.service';
 import { FlightSearchController } from './flight-search.controller';
+import { MongooseModule } from '@nestjs/mongoose';
+import { FlightMongooseModel, FlightSchema } from 'src/mongoose-models/flight/flight.schema';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([FlightMysqlEntity])],
+  imports: [TypeOrmModule.forFeature([FlightMysqlEntity]),  MongooseModule.forFeature([{ name: FlightMongooseModel.name, schema: FlightSchema }]),],
   providers: [FlightSearchService],
   controllers: [FlightSearchController],
   exports: [FlightSearchService],

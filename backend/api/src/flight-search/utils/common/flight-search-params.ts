@@ -1,8 +1,6 @@
-import { IAirport } from './airport.interface';
-
 export interface IFlightSearchParams {
-  departureAirport: IAirport;
-  arrivalAirport: IAirport;
+  departureAirport: number;
+  arrivalAirport: number;
   departureDate: string;
   returnDate?: string;
   numberOfPassengers: number;

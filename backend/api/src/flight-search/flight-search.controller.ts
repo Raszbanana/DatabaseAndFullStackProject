@@ -16,4 +16,9 @@ export class FlightSearchController {
   searchFlightsNeo4j(@Query() flightSearchParams: IFlightSearchParams) {
     return this.flightSearchService.getFlightsNeo4j(flightSearchParams);
   }
+
+  @Get('mongoose')
+  searchFlightsMongoose(@Query() flightSearchParams: IFlightSearchParams) {
+    return this.flightSearchService.getFlightsMongoose(flightSearchParams);
+  }
 }

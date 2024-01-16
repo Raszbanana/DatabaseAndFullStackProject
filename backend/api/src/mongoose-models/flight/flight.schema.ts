@@ -23,9 +23,6 @@ export class FlightMongooseModel {
 
   @Prop()
   arrivalDateTime: Date;
-
-  @Prop()
-  availableSeats: number;
 }
 
 export type FlightDocument = FlightMongooseModel & Document;
